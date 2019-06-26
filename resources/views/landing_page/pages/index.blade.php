@@ -146,7 +146,7 @@
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
-                <h2 class="section-title text-white">Nasabah Terkece</h2>
+                <h2 class="section-title text-white">Nasabah Teraktif Menukar Sampah</h2>
             </div>
         </div>
     </div>

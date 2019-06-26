@@ -20,12 +20,13 @@
 
         @role('Nasabah')
 
-        <li >
-            <a href="#" >{{-- {{ route('transaksiReward.create') }} --}}
-                <i class="fas fa-hand-holding-heart"></i>
+        {{-- <li >
+            <a href="#" > --}}
+                {{-- {{ route('transaksiReward.create') }} --}}
+                {{-- <i class="fas fa-hand-holding-heart"></i>
                 <small>Tukar Poin</small>
             </a>
-        </li>
+        </li> --}}
 
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
