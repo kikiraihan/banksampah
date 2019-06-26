@@ -159,8 +159,9 @@
                     <img src="{{ asset('assets-landing/images/avatar_2x.png') }}" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
                     <h3 class="mb-4">{{$n->user->name}}</h3>
                     <blockquote>
-                        {{$n->alamat}}
+                        <b class="text-success">{{$n->transaksiSampahs->count()}} Tranksaksi </b><br>
                     </blockquote>
+                    {{$n->alamat}}
                 </div>
             @endforeach
 
