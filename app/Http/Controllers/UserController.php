@@ -39,7 +39,7 @@ class UserController extends Controller
 
         if($kategori=='Nasabah')
         //tambah
-        array_push($columns,'alamat','ktp');
+        array_push($columns,'alamat','ktp','dusun');
 
         return view('user.create',compact(['columns','kategori']));
     }

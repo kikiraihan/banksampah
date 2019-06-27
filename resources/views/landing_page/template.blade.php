@@ -27,7 +27,8 @@
     {{-- icon --}}
     {{-- <link href="{{ asset('assets/pe-icon-7-stroke.css') }}" rel="stylesheet"> --}}
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> --}}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -38,47 +39,50 @@
 
         <div class="intro-section" id="home-section">
 
-                <div class="slide-1" style="background-image: url('{{ asset('assets-landing/images/background-sampah.jpeg') }}');"
-                    data-stellar-background-ratio="0.5">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-6 mb-4">
-                                        <h1 data-aos="fade-up" data-aos-delay="100">Selamat Datang <br> Di Bank Sampah</h1>
-                                        <p class="mb-4" data-aos="fade-up" data-aos-delay="200">
-                                            Website Pengolahan Sampah di Desa xxxxx. <br>
-                                            Kami mengolah sampah menjadi sesuatu yang lebih berharga :)
-                                        </p>
-                                    </div>
+            <div class="slide-1"
+                style="background-image: url('{{ asset('assets-landing/images/background-sampah.jpeg') }}');"
+                data-stellar-background-ratio="0.5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 mb-4">
+                                    <h1 data-aos="fade-up" data-aos-delay="100">Selamat Datang <br> Di Bank Sampah</h1>
+                                    <p class="mb-4" data-aos="fade-up" data-aos-delay="200">
+                                        Website Pengolahan Sampah di Desa xxxxx. <br>
+                                        Kami mengolah sampah menjadi sesuatu yang lebih berharga :)
+                                    </p>
+                                </div>
 
-                                    <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                                        <div class="row justify-content-center text-center text-white">
-                                            <div class="col-md-4 p-3 rounded">
-                                                <div class="col-12 counter">
-                                                    <i class="fa fa-recycle statistik-icon mb-4" aria-hidden="true"></i>
-                                                    <h2 class="timer count-title count-number" data-to="{{$nTransaksiSampah}}" data-speed="1500"></h2>
-                                                    <p class="count-text">Transaksi Sampah</p>
-                                                </div>
-                                            </div>
-                                            <div class="col"></div>
-                                            <div class="col-md-4 p-3 rounded">
-                                                <div class="col-12 counter">
-                                                    <i class="fa fa-user statistik-icon mb-4" aria-hidden="true"></i>
-                                                    <h2 class="timer count-title count-number" data-to="{{$nNasabah}}" data-speed="1500"></h2>
-                                                    <p class="count-text ">Nasabah Terdaftar</p>
-                                                </div>
+                                <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
+                                    <div class="row justify-content-center text-center text-white">
+                                        <div class="col-md-4 p-3 rounded">
+                                            <div class="col-12 counter">
+                                                <i class="fa fa-recycle statistik-icon mb-4" aria-hidden="true"></i>
+                                                <h2 class="timer count-title count-number"
+                                                    data-to="{{$nTransaksiSampah}}" data-speed="1500"></h2>
+                                                <p class="count-text">Transaksi Sampah</p>
                                             </div>
                                         </div>
-
+                                        <div class="col"></div>
+                                        <div class="col-md-4 p-3 rounded">
+                                            <div class="col-12 counter">
+                                                <i class="fa fa-user statistik-icon mb-4" aria-hidden="true"></i>
+                                                <h2 class="timer count-title count-number" data-to="{{$nNasabah}}"
+                                                    data-speed="1500"></h2>
+                                                <p class="count-text ">Nasabah Terdaftar</p>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
+        </div>
 
         {{-- Halaman Jenis Sampah --}}
         @yield('jenis-sampah')

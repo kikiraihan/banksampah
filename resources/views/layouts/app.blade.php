@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,25 +19,25 @@
     {{-- icon --}}
     {{-- <link href="{{ asset('assets/pe-icon-7-stroke.css') }}" rel="stylesheet"> --}}
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> --}}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('assets/bootstrap4/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
 
     @yield('css-halaman')
-
+    <link rel="stylesheet" href="{{ asset('assets/Chart.min.css') }}">
 </head>
+
 <body style="{{ $bodyStyle }}">
     <div id="app" class="wrapper">
         @auth
         @include('layouts.sidebar')
         @endauth
 
-
         <div id="content">
             @include('layouts.navbar')
-
             <main class="py-4">
                 @yield('content')
             </main>
@@ -48,15 +49,57 @@
     </footer> --}}
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="{{ asset('assets/bootstrap4/js/jquery-3.3.1.js') }}" ></script>
+    <script src="{{ asset('assets/bootstrap4/js/jquery-3.3.1.js') }}"></script>
     <!-- Popper.JS -->
-    <script src="{{ asset('assets/bootstrap4/js/popper.js') }}" ></script>
+    <script src="{{ asset('assets/bootstrap4/js/popper.js') }}"></script>
     <!-- Bootstrap JS -->
-    <script src="{{ asset('assets/bootstrap4/js/bootstrap.js') }}" ></script>
+    <script src="{{ asset('assets/bootstrap4/js/bootstrap.js') }}"></script>
 
     <script type="text/javascript">
-    // $('#sidebar').toggleClass('active');
+        // $('#sidebar').toggleClass('active');
+        
         $(document).ready(function () {
+            if($('#chart').length){
+                let chart = $('#chart')[0].getContext('2d');
+                
+                let myChart = new Chart(chart, {
+                    type: 'bar',
+                    data: {
+                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 23, 2, 3],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
                 $('#content').css('width','calc(100%-250px)');
@@ -69,9 +112,14 @@
 
     </script>
 
-    <script src="{{ asset('assets/countDisplayKiki.js') }}" ></script>
+    <script src="{{ asset('assets/countDisplayKiki.js') }}"></script>
 
     @yield('script-halaman')
 
+    <script src="{{ asset('assets/Chart.min.js') }}"></script>
+
+    <script src="{{ asset('assets/script.js') }}"></script>
+
 </body>
+
 </html>

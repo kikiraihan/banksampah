@@ -19,6 +19,7 @@ class CreateNasabahsTable extends Migration
             $table->integer('id_user')->unsigned();//FK
             $table->string('ktp')->unique();
             $table->string('alamat',191);
+            $table->string('dusun');
             $table->integer('saldo');
 
             $table->timestamps();
