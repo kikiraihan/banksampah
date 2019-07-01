@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// use App\Models\Nasabah;
+use App\Models\Nasabah;
+
+use App\Models\TransaksiSampah;
+
+use  Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -17,6 +21,21 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');
+        // PERDUSUN
+        //transaksi
+        $nasDus = Nasabah::with('transaksiSampahs')->get()->groupBy('dusun');
+        foreach ($nasDus as $dusun => $nasabah) {
+            $transDus[$dusun] = 0;
+            foreach ($nasabah as $n) {
+                $transDus[$dusun] = $transDus[$dusun]+count($n->transaksiSampahs);
+            }
+        }
+
+        //nasabah
+        foreach ($nasDus as $dusun => $nasabah) {
+            $nasabahDusun[$dusun] = count($nasabah);
+        }
+
+        return view('home',compact('transDus','nasabahDusun'));
     }
 }
