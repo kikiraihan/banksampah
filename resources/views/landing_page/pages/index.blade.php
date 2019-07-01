@@ -161,11 +161,13 @@
                     <blockquote>
                         <b class="text-success">{{$n->transaksiSampahs->count()}} Tranksaksi </b><br>
                     </blockquote>
+                    <p class="text-light">Dusun : {{$n->dusun}}</p>
                     {{$n->alamat}}
                 </div>
             @endforeach
-
         </div>
+        <br><br><br>
+        <a href="{{ route('nasabahTrans') }}" class="btn btn-outline-success btn-block ml-auto mr-auto col-4">Semua Nasabah</a>
     </div>
 </div>
 @endsection

@@ -25,6 +25,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+//FPDF
+Route::get('/cetak/nasabahpertransaksi',  'pdfController@nasabahTrans')->name('nasabahTrans');
+
+
 
 
 
