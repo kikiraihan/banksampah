@@ -59,6 +59,7 @@ class UserController extends Controller
                 "password" =>"required|min:6",
                 "alamat"=>"required|string",
                 "ktp"=>"required|string|unique:nasabahs",
+                "dusun"=>"required"
             ]);
         }
         else{
@@ -88,6 +89,7 @@ class UserController extends Controller
             $nasabah = new Nasabah;
             $nasabah->ktp=$request->ktp;
             $nasabah->alamat=$request->alamat;
+            $nasabah->dusun=$request->dusun;
             $nasabah->saldo=0;
             $user->nasabah()->save($nasabah);
         }

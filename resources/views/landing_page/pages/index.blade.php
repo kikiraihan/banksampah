@@ -224,6 +224,9 @@ let regis =
     '<input name="telepon" type="text" class="form-control" placeholder="Telepone" >' +
     '</div>' +
     '<div class="form-group">' +
+    '<input name="dusun" type="text" class="form-control" placeholder="Dusun" >' +
+    '</div>' +
+    '<div class="form-group">' +
     '<input name="username" type="text" class="form-control" placeholder="Username" >' +
     '</div>' +
 
