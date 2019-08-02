@@ -11,6 +11,7 @@ class Nasabah extends Model
         'ktp',
         'alamat',
         'saldo',
+        'dusun',
     ];
 
 

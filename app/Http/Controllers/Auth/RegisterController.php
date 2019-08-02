@@ -51,14 +51,24 @@ class RegisterController extends Controller
     {
 
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            // 'name' => 'required|string|max:255',
+            // 'email' => 'required|string|email|max:255|unique:users',
+            // 'password' => 'required|string|min:6|confirmed',
 
-            "ktp" => 'required|string|max:255|unique:nasabahs',
-            "alamat" => 'required|string',
-            "telepon" => 'required|string|max:255|unique:users',
-            "username" => 'required|string|max:255|unique:users',
+            // "ktp" => 'required|string|max:255|unique:nasabahs',
+            // "alamat" => 'required|string',
+            // "telepon" => 'required|string|max:255|unique:users',
+            // "username" => 'required|string|max:255|unique:users',
+
+            "name" =>"required|string",
+            "email" =>"required|email|unique:users",
+            "password" =>"required|min:6",
+            "ktp"=>"required|string|unique:nasabahs",
+            "alamat"=>"required|string",
+            "telepon"=>"required|string|unique:users",
+            "username"=>"required|string|unique:users",
+            // "kategori" =>"required|in:Nasabah,Admin",
+            "dusun"=>"required"
         ]);
     }
 
@@ -84,6 +94,7 @@ class RegisterController extends Controller
             'id_user'=>$user->id,
             'ktp'=> $data['ktp'],
             'alamat'=> $data['alamat'],
+            'dusun'=> $data['dusun'],
             'saldo'=> 0,
         ]);
 
