@@ -49,7 +49,7 @@
                                 <div class="col-lg-6 mb-4">
                                     <h1 data-aos="fade-up" data-aos-delay="100">Selamat Datang <br> Di Bank Sampah</h1>
                                     <p class="mb-4" data-aos="fade-up" data-aos-delay="200">
-                                        Website Pengolahan Sampah di Desa xxxxx. <br>
+                                        Website Pengolahan Sampah di Desa Hungayonaa. <br>
                                         Kami mengolah sampah menjadi sesuatu yang lebih berharga :)
                                     </p>
                                 </div>
