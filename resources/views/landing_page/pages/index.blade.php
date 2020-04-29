@@ -2,7 +2,6 @@
 
 @section('login')
     <div id="login-section">
-        <br><br><br><br><br>
     </div>
     <div class="site-section courses-entry-wrap mt-3" data-aos="fade-up" data-aos-delay="100">
         <div class="container">
@@ -48,6 +47,7 @@
 
                 </form>
             </div>
+            <br><br><br><br><br>
         </div>
     </div>
 

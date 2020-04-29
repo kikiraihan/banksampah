@@ -34,7 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>Bank Sampah</title>
+    <title>Avatrash</title>
 
     {{-- BOOTSTRAP, CSS, FONT AWESOME --}}
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
@@ -65,20 +65,20 @@
         {{-- Halaman Navigasi --}}
         @include('landing_page.pages.nav')
 
-        <div class="intro-section" id="home-section">
+        <div class="intro-section" id="home-section" >
 
-            <div class="slide-1"
-                style="background-image: url('{{ asset('assets-landing/images/background-sampah.jpeg') }}');"
+            <div class="slide-1" style="background-image: url('{{ asset('assets-landing/images/background-sampah.jpeg') }}');"
                 data-stellar-background-ratio="0.5">
-                <div class="container">
+                <div class="container ">
                     <div class="row align-items-center">
                         <div class="col-12">
+
                             <div class="row align-items-center">
                                 <div class="col-lg-6 mb-4">
-                                    <h1 data-aos="fade-up" data-aos-delay="100">Selamat Datang <br> Di Bank Sampah</h1>
+                                    <br><br>
+                                    <h1 data-aos="fade-up" data-aos-delay="100">Selamat Datang <br> Di Avatrash</h1>
                                     <p class="mb-4" data-aos="fade-up" data-aos-delay="200">
-                                        Website Pengolahan Sampah di Desa Hungayonaa. <br>
-                                        Kami mengolah sampah menjadi sesuatu yang lebih berharga :)
+                                        Website Penukaran Sampah dan Komunitas Pengendali Ekosistem. Kami akan mengolah #sampah_masyarakat menjadi sesuatu yang lebih berharga :)
                                     </p>
                                 </div>
 
@@ -112,6 +112,9 @@
             </div>
         </div>
 
+        {{-- Halaman Login --}}
+        @yield('login')
+
         {{-- Halaman Jenis Sampah --}}
         @yield('jenis-sampah')
 
@@ -121,8 +124,7 @@
         {{-- Halaman User Point --}}
         @yield('user-point')
 
-        {{-- Halaman Login --}}
-        @yield('login')
+
 
         {{-- Halaman Footer --}}
         @include('landing_page.pages.footer')
