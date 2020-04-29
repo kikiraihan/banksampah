@@ -4,7 +4,7 @@
 <head>
 
 
-    {{-- <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164971038-1"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,10 +12,10 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-164971038-1');
-    </script> --}}
+    </script>
 
     {{-- google analytics custom, Sumber https://www.mastimon.com/2017/11/cara-daftar-google-analitic-untuk.html --}}
-    <script type='text/javascript'>
+    {{-- <script type='text/javascript'>
     var _gaq = _gaq || [];
     _gaq.push([&#39;_setAccount&#39;, &#39;UA-164971038-1&#39;]);
 
@@ -26,7 +26,7 @@
         ga.src = (&#39;https:&#39; == document.location.protocol ?  &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
         var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
     })();
-    </script>
+    </script> --}}
 
 
 
