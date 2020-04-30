@@ -20,7 +20,7 @@ class LandingPageController extends Controller
     {
 
         $nNasabah = Nasabah::count();
-        $nTransaksiSampah = TransaksiSampah::count();
+        $nTransaksiSampah = TransaksiSampah::where('validasi',1)->count();
 
         $sampah=Sampah::all();
         $reward=Reward::all();
