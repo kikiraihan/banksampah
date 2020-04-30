@@ -38,4 +38,11 @@ class HomeController extends Controller
 
         return view('home',compact('transDus','nasabahDusun'));
     }
+
+    public function login_page()
+    {
+        return view('landing_page.login');
+    }
+
+
 }

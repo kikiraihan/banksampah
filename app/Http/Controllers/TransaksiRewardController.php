@@ -8,6 +8,7 @@ use App\Models\Nasabah;
 use App\Models\Reward;
 use App\Traits\arrayTrait;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class TransaksiRewardController extends Controller
 {
@@ -17,12 +18,23 @@ class TransaksiRewardController extends Controller
     {
 
 
-        if(auth::user()->kategori=="Admin")$transaksiReward=TransaksiReward::with(['nasabah.user','reward'])->get();
+        if(auth::user()->kategori=="Admin")
+        {
+            $transaksiReward=TransaksiReward::with(['nasabah.user','reward'])->where('validasi',0)->get();
+            $transaksiValid=TransaksiReward::with(['nasabah.user','reward'])->where('validasi',1)->get();
+        }
         elseif(auth::user()->kategori=="Member")
-        $transaksiReward=TransaksiReward::with(['nasabah.user','reward'])
-        ->whereHas('reward', function($reward){
-            $reward->where('id_member',auth::user()->member->id);
-        })->get();
+        {
+            $transaksiReward=TransaksiReward::with(['nasabah.user','reward'])
+            ->whereHas('reward', function($reward){
+                $reward->where('id_member',auth::user()->member->id);
+            })->where('validasi',0)->get();
+            $transaksiValid=TransaksiReward::with(['nasabah.user','reward'])
+            ->whereHas('reward', function($reward){
+                $reward->where('id_member',auth::user()->member->id);
+            })->where('validasi',1)->get();
+
+        }
 
         // if (!$transaksiReward->isEmpty()) {
         //     $columns = $transaksiReward[0]->getFillable();
@@ -35,7 +47,7 @@ class TransaksiRewardController extends Controller
         // array_push($columns,'nasabah->user->name');
         // dd($columns);
 
-        return view('transaksiReward.index',compact(['transaksiReward','columns']));
+        return view('transaksiReward.index',compact(['transaksiReward','transaksiValid','columns']));
     }
 
 
@@ -128,6 +140,8 @@ class TransaksiRewardController extends Controller
         //simpan
         $transaksi->save();
 
+        Session::flash('sukses', $transaksi);
+        // dd(Session::get('sukses')->reward->pemilik->user->name);
         return redirect()->route('transaksiRewardPerNasabah');
     }
 

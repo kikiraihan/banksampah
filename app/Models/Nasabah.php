@@ -12,6 +12,7 @@ class Nasabah extends Model
         'alamat',
         'saldo',
         'dusun',
+        'provinsi',
     ];
 
 

@@ -22,6 +22,8 @@ Route::get('/',  'LandingPageController@index')->name('landing_page');
 
 Auth::routes();
 
+// Route::get('/login', 'HomeController@login_page')->name('login_page');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 

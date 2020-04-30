@@ -65,6 +65,7 @@ class RegisterController extends Controller
             "password" =>"required|min:6",
             "ktp"=>"required|string|unique:nasabahs",
             "alamat"=>"required|string",
+            "provinsi"=>"required|string",
             "telepon"=>"required|string|unique:users",
             "username"=>"required|string|unique:users",
             // "kategori" =>"required|in:Nasabah,Admin",
@@ -80,6 +81,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data['provinsi']);
 
         $user=User::create([
             'name' => $data['name'],
@@ -95,6 +97,7 @@ class RegisterController extends Controller
             'ktp'=> $data['ktp'],
             'alamat'=> $data['alamat'],
             'dusun'=> $data['dusun'],
+            'provinsi'=> $data['provinsi'],
             'saldo'=> 0,
         ]);
 

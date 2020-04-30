@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    {{--  <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
@@ -68,6 +68,59 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>  --}}
+
+
+    <div class="row justify-content-center text-center">
+        <div class="container">
+        <form id="formBase" method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+            @csrf
+
+            <div class="form-login-regis">
+
+                    <h3 class="h4 text-black mb-4">Login</h3>
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Email Addresss"
+                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        name="email" value="{{ old('email') }}" required>
+
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <input type="password" placeholder="Password"
+                        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                        name="password" required>
+                        @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+
+                        {{--  <a href="#" class="ml-3 btn btn-outline-secondary btn-pill register-button">
+                            Register</a>  --}}
+                    </div>
+                    <div class="form-group-row">
+                        <div class="row no-gutters">
+                        <span class="col-6 p-1"><input type="submit" class="text-white btn btn-success btn-block btn-pill" value="Login"></span>
+                        <span class="col-6 p-1"><a href="{{ route('register') }}" class="btn btn-info w-100 btn-pill" >Sign Up</a></span>
+                        <span class="p-1 w-100"><a href="{{ route('landing_page') }}" class="btn btn-outline-secondary w-100 btn-pill" >Kembali</a></span>
+                        </div>
+                    </div>
+
+            </div>
+
+        </form>
         </div>
     </div>
 </div>

@@ -9,6 +9,18 @@
     <div class="row justify-content-center">
         <div class="container">
 
+        @if ($errors->any())
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <i class="icon fa fa-warning"></i> <b>There is an some invalid</b>
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
 
             <div class="row no-gutters">
             @foreach ($reward as $r)

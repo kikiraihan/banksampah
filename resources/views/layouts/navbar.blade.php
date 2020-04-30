@@ -4,12 +4,12 @@
         <a class="pl-0 pr-3 font-weight-bold" href="#" id="sidebarCollapse" role="button">
             ☰
         </a>
-        @endauth
         <span class=" small" style="font-family: 'sans'">
             {{-- {{ config('app.name', 'Laravel') }} | --}}
             {{-- SISPEK - Mahasiswa | --}}
             Privilege : {{Auth::user()->kategori}}
         </span>
+        @endauth
 
 
 
@@ -25,9 +25,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
             </li>
-            {{-- <li class="nav-item">
+            {{--  <li class="nav-item">
                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-            </li> --}}
+            </li>  --}}
             @else
 
             @if(Auth::user()->kategori=='Nasabah')

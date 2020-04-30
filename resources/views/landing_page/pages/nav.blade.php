@@ -30,7 +30,7 @@
 
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link  btn btn-light py-1 px-2" href="#login-section">{{ __('Login') }}</a>
+                    <a class="nav-link  btn btn-light py-1 px-2" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
                 @else
                 <li class="nav-item dropdown d-sm-none d-lg-inline">

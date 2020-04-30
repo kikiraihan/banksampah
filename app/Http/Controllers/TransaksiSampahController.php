@@ -8,6 +8,7 @@ use App\Models\Nasabah;
 use App\Models\Sampah;
 use App\Traits\arrayTrait;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class TransaksiSampahController extends Controller
 {
@@ -16,12 +17,24 @@ class TransaksiSampahController extends Controller
 
     public function index()
     {
-        if(auth::user()->kategori=="Admin")$transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])->get();
+        if(auth::user()->kategori=="Admin")
+        {
+            $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])->where('validasi',0)->get();
+            $transaksiValid=TransaksiSampah::with(['nasabah.user','sampah'])->where('validasi',1)->get();
+        }
         elseif(auth::user()->kategori=="Member")
-        $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])
-        ->whereHas('sampah', function($sampah){
-            $sampah->where('id_member',auth::user()->member->id);
-        })->get();
+        {
+            $transaksiValid=TransaksiSampah::with(['nasabah.user','sampah'])
+            ->whereHas('sampah', function($sampah){
+                $sampah->where('id_member',auth::user()->member->id);
+            })->where('validasi',1)->get();
+
+            $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])
+            ->whereHas('sampah', function($sampah){
+                $sampah->where('id_member',auth::user()->member->id);
+            })->where('validasi',0)->get();
+
+        }
 
         // if (!$transaksiSampah->isEmpty()) {
         //     $columns = $transaksiSampah[0]->getFillable();
@@ -34,7 +47,7 @@ class TransaksiSampahController extends Controller
         // array_push($columns,'nasabah->user->name');
         // dd($columns);
 
-        return view('transaksiSampah.index',compact(['transaksiSampah','columns']));
+        return view('transaksiSampah.index',compact(['transaksiSampah','transaksiValid','columns']));
     }
 
 
@@ -99,6 +112,7 @@ class TransaksiSampahController extends Controller
         $transaksi->save();
 
 
+        Session::flash('sukses', $transaksi);
         return redirect()->route('transaksiSampahPerNasabah');
     }
 
@@ -118,6 +132,7 @@ class TransaksiSampahController extends Controller
         $transaksi->nasabah->save();
 
         $transaksi->save();
+
 
         return redirect()->route('transaksiSampah');
 
