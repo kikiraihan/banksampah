@@ -39,10 +39,5 @@ class HomeController extends Controller
         return view('home',compact('transProv','nasabahProvinsi'));
     }
 
-    public function login_page()
-    {
-        return view('landing_page.login');
-    }
-
 
 }

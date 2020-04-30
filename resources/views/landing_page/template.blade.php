@@ -114,7 +114,7 @@
         </div>
 
         {{-- Halaman Login --}}
-        @yield('login')
+        @yield('logo')
 
         {{-- Halaman Jenis Sampah --}}
         @yield('jenis-sampah')

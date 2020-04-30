@@ -1,6 +1,47 @@
 @extends('landing_page.template')
 
 
+@section('logo')
+    <div class="site-section" id="sampah-section">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
+                    <h2 class="section-title">About Us</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-center align-middle">
+                        <img src="{{asset('img/logo.jpeg')}}" alt="logo" class=" w-75">
+                    </div>
+                </div>
+
+
+                <div class="col-md-8 d-flex align-items-center">
+                    <div class="card-text">
+                        <b class="text-success font-weight-bold">Avatrash</b><br>
+                        Sebuah komunitas non profit yang memiliki visi menanamkan kesadaran, lingkungan, dan budaya mengolah sampah dimasyarakat.<br>
+                        <b class="text-secondary font-weight-bold">What we do?</b>
+                        Kami menawarkan solusi alternatif mencari pemasukan pasif dari mengumpul sampah di rumah. Selain uang juga bisa ditukar dengan sembako.<br>
+                        <span  class="small">
+                        <b class="text-success font-weight-bold">Our Team</b> :
+                        Moh Zulkifli Katili, Aditya Febriyansah, Bagus Hariyanto, Melati Isti R, dan Fauziyyah Khoirunnisa.
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br><br>
+
+    </div>
+@endsection
 
 @section('jenis-sampah')
 <div class="site-section" id="sampah-section">
