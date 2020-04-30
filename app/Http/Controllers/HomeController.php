@@ -23,20 +23,20 @@ class HomeController extends Controller
     {
         // PERDUSUN
         //transaksi
-        $nasDus = Nasabah::with('transaksiSampahs')->get()->groupBy('dusun');
-        foreach ($nasDus as $dusun => $nasabah) {
-            $transDus[$dusun] = 0;
+        $nasProv = Nasabah::with('transaksiSampahs')->get()->groupBy('provinsi');
+        foreach ($nasProv as $provinsi => $nasabah) {
+            $transProv[$provinsi] = 0;
             foreach ($nasabah as $n) {
-                $transDus[$dusun] = $transDus[$dusun]+count($n->transaksiSampahs);
+                $transProv[$provinsi] = $transProv[$provinsi]+count($n->transaksiSampahs);
             }
         }
 
         //nasabah
-        foreach ($nasDus as $dusun => $nasabah) {
-            $nasabahDusun[$dusun] = count($nasabah);
+        foreach ($nasProv as $provinsi => $nasabah) {
+            $nasabahProvinsi[$provinsi] = count($nasabah);
         }
 
-        return view('home',compact('transDus','nasabahDusun'));
+        return view('home',compact('transProv','nasabahProvinsi'));
     }
 
     public function login_page()

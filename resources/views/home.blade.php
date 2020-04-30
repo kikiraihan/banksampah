@@ -17,11 +17,11 @@
                     @endif
                 </div>
                 <div class="card-body mb-4">
-                    <h3>Transaksi Sampah Per Dusun</h3>
+                    <h3>Transaksi Sampah Per Provinsi</h3>
                     <canvas id="chart"></canvas>
                 </div>
                 <div class="card-body">
-                    <h3>Nasabah per Dusun</h3>
+                    <h3>Nasabah per Provinsi</h3>
                     <canvas id="nasabah-chart"></canvas>
                 </div>
             </div>
@@ -38,10 +38,10 @@
                 let myChart = new Chart(chart, {
                     type: 'bar',
                     data: {
-                        labels: {!!'["' . implode('", "', array_keys($transDus) ) . '"]'!!},
+                        labels: {!!'["' . implode('", "', array_keys($transProv) ) . '"]'!!},
                         datasets: [{
                             label: 'Jumlah Transaksi',
-                            data: {!!'["' . implode('", "', $transDus ) . '"]'!!},
+                            data: {!!'["' . implode('", "', $transProv ) . '"]'!!},
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
@@ -78,10 +78,10 @@
                 let myChart = new Chart(nasabahChart, {
                     type: 'bar',
                     data: {
-                        labels: {!!'["' . implode('", "', array_keys($nasabahDusun) ) . '"]'!!},
+                        labels: {!!'["' . implode('", "', array_keys($nasabahProvinsi) ) . '"]'!!},
                         datasets: [{
                             label: 'Jumlah Transaksi',
-                            data: {!!'["' . implode('", "', $nasabahDusun ) . '"]'!!},
+                            data: {!!'["' . implode('", "', $nasabahProvinsi ) . '"]'!!},
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',

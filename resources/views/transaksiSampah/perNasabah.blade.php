@@ -36,12 +36,13 @@
 
             <div class="card">
                 <div class="card-header pl-3">Transaksi Sampah</div>
-                <div class="card-body container">
+                <div class="card-body container px-2">
 
 
                     {{-- <a href="{{ route('transaksiSampah.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah +</a>
                     <hr> --}}
-                    <table class="table table-striped table-borderless border border-white-50 table-sm small">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-borderless border border-white-50 table-sm small">
                             <caption class="text-left ">Daftar history transaksi Sampah</caption>
                             <thead class="thead-light text-center">
                                 <tr>
@@ -92,6 +93,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
 
 
                 </div>

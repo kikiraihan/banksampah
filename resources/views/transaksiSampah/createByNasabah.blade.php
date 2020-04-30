@@ -10,17 +10,25 @@
         <div class="container">
 
 
-        @if ($errors->any())
-        <div class="alert alert-warning alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <i class="icon fa fa-warning"></i> <b>There is an some invalid</b>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+
+        @if ($sampah->isEmpty())
+        <div class="alert alert-info small text-center" role="alert">
+            <strong>Kosong..</strong> <br>
+            Member di area anda belum membuat daftar sampah yang diterima.
+            {{--  Silahkan hubungi member terdekat.  --}}
         </div>
-        @endif
+        @else
+            @if ($errors->any())
+            <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <i class="icon fa fa-warning"></i> <b>There is an some invalid</b>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
 
             <div class="row no-gutters">
@@ -78,6 +86,8 @@
 
             @endforeach
             </div>
+        @endif
+
 
 
 

@@ -24,7 +24,7 @@
 
             <div class="card">
                 <div class="card-header pl-3">Transaksi Sampah</div>
-                <div class="card-body container">
+                <div class="card-body container px-2">
 
 
                     {{--  @role('Member')

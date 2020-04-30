@@ -9,6 +9,14 @@
     <div class="row justify-content-center">
         <div class="container">
 
+
+        @if ($reward->isEmpty())
+        <div class="alert alert-info small text-center" role="alert">
+            <strong>Kosong..</strong> <br>
+            Member di area anda belum membuat daftar reward yang diterima.
+            {{--  Silahkan hubungi member terdekat.  --}}
+        </div>
+        @else
         @if ($errors->any())
         <div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -78,6 +86,7 @@
 
             @endforeach
             </div>
+            @endif
 
 
 

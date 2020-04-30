@@ -36,7 +36,7 @@
 
             <div class="card">
                 <div class="card-header pl-3">Transaksi Reward</div>
-                <div class="card-body container">
+                <div class="card-body container px-2">
 
 
                     {{-- <a href="{{ route('transaksiReward.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah +</a>

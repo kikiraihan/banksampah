@@ -10,14 +10,15 @@
         <div class="container">
             <div class="card">
                 <div class="card-header pl-3">Jenis Sampah</div>
-                <div class="card-body container">
+                <div class="card-body container px-2">
 
 
                     @role('Member')
                     <a href="{{ route('sampah.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah +</a>
                     <hr>
                     @endrole
-                    <table class="table table-striped table-borderless border border-white-50 table-sm small">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-borderless border border-white-50 table-sm small">
                             <caption class="text-left ">Data jenis sampah yang akan diterima</caption>
                             <thead class="thead-light text-center">
                                 <tr>
@@ -78,6 +79,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
 
 
                 </div>
