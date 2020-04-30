@@ -41,7 +41,7 @@ class MemberTableSeeders extends Seeder
         $user->kategori="Member";
         $user->name="Adit";
         $user->username="adit";
-        $user->email="Adit@gmail.com";
+        $user->email="adit@gmail.com";
         $user->telepon="082246461047";
         $user->password="1234";
         $user->assignRole('Member');
@@ -66,7 +66,7 @@ class MemberTableSeeders extends Seeder
         $user->kategori="Member";
         $user->name="Fauziyyah";
         $user->username="fau";
-        $user->email="Fauziyyah@gmail.com";
+        $user->email="fau@gmail.com";
         $user->telepon="085103226373";
         $user->password="1234";
         $user->assignRole('Member');
@@ -91,7 +91,7 @@ class MemberTableSeeders extends Seeder
         $user->kategori="Member";
         $user->name="Melati";
         $user->username="melati";
-        $user->email="Melati@gmail.com";
+        $user->email="melati@gmail.com";
         $user->telepon="082118282318";
         $user->password="1234";
         $user->assignRole('Member');
