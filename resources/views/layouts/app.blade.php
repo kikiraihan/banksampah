@@ -39,6 +39,9 @@
     <link href="{{ asset('assets/bootstrap4/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
 
+    {{--  Manifest.Json PWA  --}}
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
     @yield('css-halaman')
     <link rel="stylesheet" href="{{ asset('assets/Chart.min.css') }}">
 </head>
