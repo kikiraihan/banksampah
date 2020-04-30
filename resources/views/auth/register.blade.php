@@ -17,15 +17,7 @@
 
                         <h3 class="h4 text-black mb-4">Register</h3>
                         <div class="form-group">
-                        <input name="ktp" type="text" class="form-control {{ $errors->has('ktp') ? ' is-invalid' : '' }}" placeholder="No KTP" name="nik">
-                        @if ($errors->has('ktp'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('ktp') }}</strong>
-                            </span>
-                        @endif
-                        </div>
-                        <div class="form-group">
-                        <input name="name" type="text" class="form-control  {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="Nama" >
+                        <input name="name" value="{{ old('name') }}" type="text" class="form-control  {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="Nama" >
                         @if ($errors->has('name'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('name') }}</strong>
@@ -33,7 +25,7 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <input name="email" type="text" class="form-control  {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" >
+                        <input name="email" value="{{ old('email') }}" type="text" class="form-control  {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" >
                         @if ($errors->has('email'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('email') }}</strong>
@@ -41,7 +33,7 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <input name="telepon" type="text" class="form-control  {{ $errors->has('telepon') ? ' is-invalid' : '' }}" placeholder="Nomor Whatsapp" >
+                        <input name="telepon" value="{{ old('telepon') }}" type="text" class="form-control  {{ $errors->has('telepon') ? ' is-invalid' : '' }}" placeholder="Nomor Whatsapp" >
                         @if ($errors->has('telepon'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('telepon') }}</strong>
@@ -93,7 +85,7 @@
                             @endif
                         </div>
                         <div class="form-group">
-                        <textarea  name="alamat" class="form-control  {{ $errors->has('alamat') ? ' is-invalid' : '' }}" placeholder="Alamat" rows=4></textarea>
+                        <textarea  name="alamat" class="form-control  {{ $errors->has('alamat') ? ' is-invalid' : '' }}" placeholder="Alamat" rows=4>{{ old('ktp') }}</textarea>
                         @if ($errors->has('alamat'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('alamat') }}</strong>
@@ -101,17 +93,31 @@
                         @endif
                         </div>
                         <div class="form-group">
-                        <input name="dusun" type="text" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" placeholder="Dusun" >
+                        <input name="dusun" value="{{ old('dusun') }}" type="text" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" placeholder="Dusun" >
+                        <span class="small text-muted">
+                        *optional
+                        </span>
                         @if ($errors->has('dusun'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('dusun') }}</strong>
                             </span>
                         @endif
                         </div>
+                        <div class="form-group">
+                        <input  name="ktp" value="{{ old('ktp') }}" type="text" class="form-control {{ $errors->has('ktp') ? ' is-invalid' : '' }}" placeholder="No KTP " >
+                        <span class="small text-muted">
+                        *optional
+                        </span>
+                        @if ($errors->has('ktp'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('ktp') }}</strong>
+                            </span>
+                        @endif
+                        </div>
 
 
                         <div class="form-group">
-                        <input name="username" type="text" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" placeholder="Username" >
+                        <input name="username" value="{{ old('username') }}" type="text" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" placeholder="Username" >
                         @if ($errors->has('username'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('username') }}</strong>
@@ -120,7 +126,7 @@
                         </div>
 
                         <div class="form-group">
-                        <input name="password" type="password" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" placeholder="Password" >
+                        <input name="password" value="{{ old('password') }}" type="password" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" placeholder="Password" >
                         @if ($errors->has('password'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -129,7 +135,7 @@
                         </div>
 
                         <div class="form-group">
-                        <input id="password-confirm" type="password" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" name="password_confirmation" placeholder="Retype Password" required>
+                        <input id="password-confirm" value="{{ old('password') }}" type="password" class="form-control  {{ $errors->has('dusun') ? ' is-invalid' : '' }}" name="password_confirmation" placeholder="Retype Password" required>
                         @if ($errors->has('password_confirmation'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>

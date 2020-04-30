@@ -25,7 +25,10 @@ class LandingPageController extends Controller
         $sampah=Sampah::all();
         $reward=Reward::all();
 
-        $nasabah = Nasabah::Has('transaksiSampahs')->with(['transaksiSampahs'])->get()->take(3);
+        $nasabah = Nasabah::Has('transaksiSampahs')->with(['transaksiSampahs'])
+        ->whereHas('transaksiSampahs', function($transaksi){
+            $transaksi->where('validasi',1);
+        })->get()->take(3);
 
 
         // dd($nasabah[1]->transaksiSampahs);

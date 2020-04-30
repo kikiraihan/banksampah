@@ -63,13 +63,13 @@ class RegisterController extends Controller
             "name" =>"required|string",
             "email" =>"required|email|unique:users",
             "password" =>"required|min:6",
-            "ktp"=>"required|string|unique:nasabahs",
+            "ktp"=>"nullable|string|unique:nasabahs",
             "alamat"=>"required|string",
             "provinsi"=>"required|string",
             "telepon"=>"required|string|unique:users",
             "username"=>"required|string|unique:users",
             // "kategori" =>"required|in:Nasabah,Admin",
-            "dusun"=>"required"
+            "dusun"=>"nullable|string"
         ]);
     }
 
@@ -92,11 +92,21 @@ class RegisterController extends Controller
             'kategori'=>"Nasabah",
         ]);
 
+        if($data['ktp']==NULL)
+        $ktp=$user->id;
+        else
+        $ktp=$data['ktp'];
+
+        if($data['dusun']==NULL)
+        $dusun=1;
+        else
+        $dusun=$data['dusun'];
+
         Nasabah::create([
             'id_user'=>$user->id,
-            'ktp'=> $data['ktp'],
+            'ktp'=> $ktp,
             'alamat'=> $data['alamat'],
-            'dusun'=> $data['dusun'],
+            'dusun'=> $dusun,
             'provinsi'=> $data['provinsi'],
             'saldo'=> 0,
         ]);
