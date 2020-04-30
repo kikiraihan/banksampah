@@ -84,7 +84,7 @@ class TransaksiSampahController extends Controller
         $transaksi=new TransaksiSampah;
         $columns = $transaksi->getFillable();
 
-        return view('transaksiSampah.createByNasabah',compact(['columns','nasabah','sampah']));
+        return view('transaksiSampah.createByNasabah',compact(['columns','sampah']));
     }
 
     public function storeByNasabah(Request $request)

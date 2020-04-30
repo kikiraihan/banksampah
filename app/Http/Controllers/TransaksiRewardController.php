@@ -90,7 +90,7 @@ class TransaksiRewardController extends Controller
         $transaksi=new TransaksiReward;
         $columns = $transaksi->getFillable();
 
-        return view('transaksiReward.createByNasabah',compact(['columns','nasabah','reward']));
+        return view('transaksiReward.createByNasabah',compact(['columns','reward']));
 
     }
 
