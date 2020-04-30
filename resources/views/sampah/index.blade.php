@@ -13,8 +13,10 @@
                 <div class="card-body container">
 
 
+                    @role('Member')
                     <a href="{{ route('sampah.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah +</a>
                     <hr>
+                    @endrole
                     <table class="table table-striped table-borderless border border-white-50 table-sm small">
                             <caption class="text-left ">Data jenis sampah yang akan diterima</caption>
                             <thead class="thead-light text-center">
@@ -39,6 +41,8 @@
                                         <td >/{{ $sampah->$col }}</td>
                                         @elseif ($col=="point")
                                         <td class="text-success">{{ $sampah->$col }} pts</td>
+                                        @elseif ($col=="id_member")
+                                        <td class="text-info">{{ $sampah->pemilik->user->name }} : {{ $sampah->pemilik->user->telepon }}</td>
                                         @else
                                         <td >{{ $sampah->$col }}</td>
                                         @endif

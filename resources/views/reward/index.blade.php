@@ -13,8 +13,10 @@
                 <div class="card-body container">
 
 
+                    @role('Member')
                     <a href="{{ route('reward.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah +</a>
                     <hr>
+                    @endrole
                     <table class="table table-striped table-borderless border border-white-50 table-sm small">
                             <caption class="text-left ">Daftar reward yang bisa ditukar</caption>
                             <thead class="thead-light text-center">
@@ -41,6 +43,8 @@
                                     <td class="text-success">
                                         {{ $reward->$col }} pts
                                     </td>
+                                    @elseif ($col=="id_member")
+                                        <td class="text-info">{{ $reward->pemilik->user->name }} : {{ $reward->pemilik->user->telepon }}</td>
                                     @else
                                     <td>{{ $reward->$col }}</td>
                                     @endif

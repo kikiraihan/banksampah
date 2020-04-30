@@ -14,6 +14,7 @@ class TransaksiSampah extends Model
         'id_sampah',
         'total_satuan',
         'total_point',
+        'validasi',
     ];
 
     //relasi

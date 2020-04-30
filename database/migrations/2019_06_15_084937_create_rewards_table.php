@@ -20,9 +20,14 @@ class CreateRewardsTable extends Migration
             $table->integer('point');
             $table->integer('stock');
             $table->string('foto',191)->nullable();
+            $table->boolean('validasi')->default(0);
 
             $table->timestamps();
             // $table->softDeletes();
+
+            $table->integer('id_member')->unsigned();//FK
+            $table->foreign('id_member')->references('id')->on('members')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

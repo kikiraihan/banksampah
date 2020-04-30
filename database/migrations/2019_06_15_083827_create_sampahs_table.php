@@ -23,6 +23,11 @@ class CreateSampahsTable extends Migration
 
             $table->timestamps();
             // $table->softDeletes();
+
+
+            $table->integer('id_member')->unsigned();//FK
+            $table->foreign('id_member')->references('id')->on('members')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

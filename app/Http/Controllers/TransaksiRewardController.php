@@ -15,7 +15,14 @@ class TransaksiRewardController extends Controller
 
     public function index()
     {
-        $transaksiReward=TransaksiReward::with(['nasabah.user','reward'])->get();
+
+
+        if(auth::user()->kategori=="Admin")$transaksiReward=TransaksiReward::with(['nasabah.user','reward'])->get();
+        elseif(auth::user()->kategori=="Member")
+        $transaksiReward=TransaksiReward::with(['nasabah.user','reward'])
+        ->whereHas('reward', function($reward){
+            $reward->where('id_member',auth::user()->member->id);
+        })->get();
 
         // if (!$transaksiReward->isEmpty()) {
         //     $columns = $transaksiReward[0]->getFillable();
@@ -61,6 +68,113 @@ class TransaksiRewardController extends Controller
     }
 
 
+    public function createByNasabah()
+    {
+        $reward=Reward::whereHas('pemilik', function($pemilik){
+            $pemilik->where('provinsi',auth::user()->nasabah->provinsi);
+        })->get();
+        // dd($reward);
+
+        $transaksi=new TransaksiReward;
+        $columns = $transaksi->getFillable();
+
+        return view('transaksiReward.createByNasabah',compact(['columns','nasabah','reward']));
+
+    }
+
+
+    public function storeByNasabah(Request $request)
+    {
+        //validasi
+        $this->validate($request, [
+            'id_reward'=>"required|string",
+            'total_jumlah'=>"required|int",
+            ]);
+        // echo "<p class='ini'>valid</p>";
+        // dd($request->all());
+
+
+        $transaksi=new TransaksiReward;
+        $reward=Reward::find($request->id_reward);
+        $nasabah=auth::user()->nasabah;
+
+
+        //isi transaksi
+        $transaksi->id_nasabah=$nasabah->id;
+        $transaksi->id_reward=$request->id_reward;
+        $transaksi->total_jumlah=$request->total_jumlah;
+        $transaksi->total_point= $transaksi->total_jumlah * $reward->point;
+
+        // cek saldo
+        if(!$this->cekSaldoCukup($nasabah, $transaksi)){
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['errorTransaksi'=>'Saldo tidak cukup : tersisa '.$nasabah->saldo.' pts, dan permintaan '. $transaksi->total_point.' pts ' ]);
+        }
+
+        // cek stock
+        if(!$this->cekStockCukup($reward, $transaksi)){
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['errorTransaksi'=>'Stock tidak cukup, tersisa '.$reward->stock.' '.$reward->nama]);
+        }
+
+
+
+        //simpan
+        $transaksi->save();
+
+        return redirect()->route('transaksiRewardPerNasabah');
+    }
+
+
+    public function validasi(Request $request){
+
+        $transaksi=TransaksiReward::find($request->id_transaksi);
+
+
+        // cek saldo
+        if(!$this->cekSaldoCukup($transaksi->nasabah, $transaksi)){
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['errorTransaksi'=>'Saldo tidak cukup : tersisa '.$transaksi->nasabah->saldo.' pts, dan permintaan '. $transaksi->total_point.' pts ' ]);
+        }
+
+        // cek stock
+        if(!$this->cekStockCukup($transaksi->reward, $transaksi)){
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['errorTransaksi'=>'Stock tidak cukup, tersisa '.$transaksi->reward->stock.' '.$transaksi->reward->nama]);
+        }
+
+
+
+        $transaksi->validasi=1;
+
+        // kurangi saldo nasabah
+        $transaksi->nasabah->saldo = $transaksi->nasabah->saldo - $transaksi->total_point;
+        $transaksi->nasabah->save();
+
+        // kurangi stock reward
+        $transaksi->reward->stock = $transaksi->reward->stock - $transaksi->total_jumlah;
+        $transaksi->reward->save();
+
+        $transaksi->save();
+
+        return redirect()->route('transaksiReward');
+
+    }
+
+
+
 
 
     public function create()
@@ -74,6 +188,11 @@ class TransaksiRewardController extends Controller
 
         return view('transaksiReward.create',compact(['columns','nasabah','reward']));
     }
+
+
+
+
+
 
     /**
     * Store a newly created resource in storage.

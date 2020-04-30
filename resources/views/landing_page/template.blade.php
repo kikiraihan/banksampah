@@ -76,6 +76,7 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-6 mb-4">
                                     <br><br>
+                                    <br class="d-md-none"><br class="d-md-none">
                                     <h1 data-aos="fade-up" data-aos-delay="100">Selamat Datang <br> Di Avatrash</h1>
                                     <p class="mb-4" data-aos="fade-up" data-aos-delay="200">
                                         Website Penukaran Sampah dan Komunitas Pengendali Ekosistem. Kami akan mengolah #sampah_masyarakat menjadi sesuatu yang lebih berharga :)

@@ -8,6 +8,7 @@ use File;
 use Storage;
 use Image;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class RewardController extends Controller
 {
@@ -18,7 +19,8 @@ class RewardController extends Controller
      */
     public function index()
     {
-        $reward=Reward::all();
+        if(auth::user()->kategori=="Admin")$reward=Reward::all();
+        elseif(auth::user()->kategori=="Member")$reward=Reward::where('id_member',auth::user()->member->id)->get();
         $columns=new Reward;
         $columns = $columns->getFillable();
 
@@ -37,6 +39,12 @@ class RewardController extends Controller
     {
         $reward=new Reward;
         $columns = $reward->getFillable();
+
+        $c=collect($columns);
+        $key = $c->search(function($item) {
+            return $item == 'id_member';
+        });$c->pull($key);
+        $columns=$c->toArray();
 
         return view('reward.create',compact(['columns']));
     }
@@ -66,7 +74,9 @@ class RewardController extends Controller
         //simpan
         $columns = $reward->getFillable();
         foreach($columns as $col){
-            if($col!='foto') $reward->$col=$request->$col;
+            if($col=="id_member")
+            $reward->id_member=auth::user()->member->id;
+            elseif($col!='foto') $reward->$col=$request->$col;
         }
         $reward->save();
 

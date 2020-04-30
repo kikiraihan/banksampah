@@ -12,11 +12,11 @@ class UsersTableSeeders extends Seeder
     public function run()
     {
 
-        factory(App\Models\User::class,10)
+        factory(App\Models\User::class,3)
         ->create(['password'=>'pulkam'])
         ->each(function($user){
-            $user->name= $user->id==1?'Kiki':$user->name;
-            $user->email= $user->id==1?'mohzulkiflikatili@gmail.com':$user->email;
+            $user->name= $user->id==1?'Nasabah':$user->name;
+            $user->email= $user->id==1?'nasabah@gmail.com':$user->email;
             $user->kategori= $user->id==1?'Nasabah':$user->kategori;
 
             $user->name= $user->id==2?'admin':$user->name;
@@ -30,6 +30,7 @@ class UsersTableSeeders extends Seeder
                 factory(App\Models\Nasabah::class,1)
                 ->create([
                     'id_user'=>$user->id,
+                    'provinsi'=>'Gorontalo'
                 ]);
 
                 $user->assignRole('Nasabah');

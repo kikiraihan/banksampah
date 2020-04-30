@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNasabahsTable extends Migration
+class CreateMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateNasabahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('nasabahs', function (Blueprint $table) {
-            $table->increments('id');//PK
+        Schema::create('members', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->integer('id_user')->unsigned();//FK
             $table->string('ktp')->unique();
-            $table->string('provinsi');
-            $table->string('alamat',191);
-            $table->string('dusun');
-            $table->integer('saldo');
+            $table->string('provinsi')->nullable();
+            $table->string('alamat',191)->nullable();
+            $table->string('dusun')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
@@ -37,6 +36,6 @@ class CreateNasabahsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nasabahs');
+        Schema::dropIfExists('members');
     }
 }

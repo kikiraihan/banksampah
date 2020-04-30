@@ -31,6 +31,18 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Nasabah','id_user');//boleh null
     }
 
+    public function member(){
+        return $this->hasOne('App\Models\Member','id_user');//boleh null
+    }
+
+    public function katget(){
+        if($this->kategori=="Nasabah")
+        return $this->hasOne('App\Models\Nasabah','id_user');//boleh null
+        elseif($this->kategori=="Member")
+        return $this->hasOne('App\Models\Member','id_user');//boleh null
+        else return null;
+    }
+
     // public function transaksiSampah(){
     //     return $this->through('App\Models\TransaksiSampah','id_user');//boleh null
     // }

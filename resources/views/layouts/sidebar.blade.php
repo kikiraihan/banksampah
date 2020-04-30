@@ -1,11 +1,13 @@
 <nav id="sidebar">
 
     <div class="text-center pt-3 m-0">
+        <a href="{{ url('/') }}" >
         <h5 class="font-weight-bold text-secondary">
             {{-- <i class="fas fa-brain fa-sm mr-1"></i> --}}
-            <i class="fas fa-store-alt"></i>
-            B.S
+            {{-- <i class="fas fa-store-alt"></i> --}}
+            AVATRASH
         </h5>
+        </a>
     </div>
     <hr class="col-8 my-1">
 
@@ -27,6 +29,21 @@
                 <small>Tukar Poin</small>
             </a>
         </li> --}}
+
+        <li >
+            <a href="{{ route('createTransaksiSampahByNasabah') }}" >
+                <small><i class="fas fa-recycle"></i> Sampah</small>
+            </a>
+        </li>
+
+        <li >
+            <a href="{{ route('transaksiRewardByNasabah.create') }}" >
+                <i class="fas fa-gift"></i>
+                <small>Hadiah</small>
+            </a>
+        </li>
+
+
 
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -51,7 +68,7 @@
 
         @endrole
 
-        @role('Admin')
+        @role('Admin|Member')
         <li>
             <a href="{{ route('user') }}" >
                 <i class="far fa-id-badge"></i>

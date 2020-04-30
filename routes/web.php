@@ -44,11 +44,16 @@ Route::get('/cetak/nasabahpertransaksi',  'pdfController@nasabahTrans')->name('n
 Route::group(['prefix' => 'transaksi/sampah'], function()
 {
     Route::get('/saya', 'TransaksiSampahController@tampilPerNasabah')->name('transaksiSampahPerNasabah');
+    Route::get('/saya/create', 'TransaksiSampahController@createByNasabah')->name('createTransaksiSampahByNasabah');
+    Route::put('/saya', 'TransaksiSampahController@storeByNasabah')->name('transaksiSampahByNasabah.store');
+
 });
 
 //TransaksiReward
 Route::group(['prefix' => 'transaksi/reward'], function() {
     Route::get('/saya', 'TransaksiRewardController@tampilPerNasabah')->name('transaksiRewardPerNasabah');
+    Route::get('/saya/create', 'TransaksiRewardController@createByNasabah')->name('transaksiRewardByNasabah.create');
+    Route::put('/saya', 'TransaksiRewardController@storeByNasabah')->name('transaksiRewardByNasabah.store');
 });
 
 
@@ -119,6 +124,7 @@ Route::group(['prefix' => 'transaksi/sampah'], function() {
     // Route::get('/{id}', 'TransaksiSampahController@show')->name('transaksiSampah.show');
     Route::put('/', 'TransaksiSampahController@store')->name('transaksiSampah.store');
     Route::delete('/delete/{id}', 'TransaksiSampahController@destroy')->name('transaksiSampah.destroy');
+    Route::put('/validasi', 'TransaksiSampahController@validasi')->name('transaksiSampah.validasi');
 
     Route::get('/{id}/edit', 'TransaksiSampahController@edit')->name('transaksiSampah.edit');
     Route::put('/{id}', 'TransaksiSampahController@update')->name('transaksiSampah.update');
@@ -133,6 +139,7 @@ Route::group(['prefix' => 'transaksi/reward'], function() {
     // Route::get('/{id}', 'TransaksiRewardController@show')->name('transaksiReward.show');
     Route::put('/', 'TransaksiRewardController@store')->name('transaksiReward.store');
     Route::delete('/delete/{id}', 'TransaksiRewardController@destroy')->name('transaksiReward.destroy');
+    Route::put('/validasi', 'TransaksiRewardController@validasi')->name('transaksiReward.validasi');
 
     Route::get('/{id}/edit', 'TransaksiRewardController@edit')->name('transaksiReward.edit');
     Route::put('/{id}', 'TransaksiRewardController@update')->name('transaksiReward.update');

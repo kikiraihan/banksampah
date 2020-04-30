@@ -5,11 +5,11 @@
             ☰
         </a>
         @endauth
-        <a class="text-uppercase small" href="{{ url('/') }}" style="font-family: 'sans'">
+        <span class=" small" style="font-family: 'sans'">
             {{-- {{ config('app.name', 'Laravel') }} | --}}
             {{-- SISPEK - Mahasiswa | --}}
-            Bank Sampah
-        </a>
+            Privilege : {{Auth::user()->kategori}}
+        </span>
 
 
 
@@ -42,7 +42,7 @@
             </li>
             @endif
 
-            <li class="nav-item dropdown d-sm-none d-lg-inline">
+            <li class="nav-item dropdown d-none d-lg-inline">
                 <a id="navbarDropdown" class="small nav-link dropdown-toggle " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{-- {{ Auth::user()->kategori }} -  --}}
                     {{ Auth::user()->name }}
@@ -69,9 +69,10 @@
                 </div>
             </li>
             <li class="nav-item dropdown d-lg-none">
-                <a  class="nav-link small" >
+                <span  class="nav-link small" >
+                {{-- href="{{ route('landing_page') }}" --}}
                     {{ Auth::user()->name }} <span class="caret"></span>
-                </a>
+                </span>
             </li>
         @endguest
     </ul>

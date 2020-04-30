@@ -62,7 +62,7 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item dropdown d-lg-none">
+                <li class="nav-item dropdown d-none">
                     <a  class="nav-link small" >
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>

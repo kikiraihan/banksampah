@@ -15,8 +15,10 @@
                 <div class="card-body container">
 
 
+                    @role('Member')
                     <a href="{{ route('transaksiReward.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah +</a>
                     <hr>
+                    @endrole
                     <table class="table table-striped table-borderless border border-white-50 table-sm small">
                             <caption class="text-left ">Daftar history transaksi reward</caption>
                             <thead class="thead-light text-center">
@@ -54,6 +56,16 @@
                                                 ☰
                                             </span>
                                             <div class="dropdown-menu">
+
+                                                <form style="display: inline;" method="post" action="{{ route('transaksiReward.validasi') }}">
+                                                        <input type="hidden" name="_method" value="PUT">
+                                                        <input type="hidden" name="id_transaksi" value="{{$transaksiReward->id}}">
+                                                        {{ csrf_field()}}
+                                                    <button class="dropdown-item small text-success" >
+                                                        <i class="fas fa-check"></i>
+                                                        Validasi
+                                                    </button>
+                                                </form>
 
                                                 <form style="display: inline;" method="post" action="{{ route('transaksiReward.destroy', ['id'=>$transaksiReward->id]) }}">
                                                         <input type="hidden" name="_method" value="DELETE">

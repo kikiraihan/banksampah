@@ -6,6 +6,7 @@ $factory->define(App\Models\Sampah::class, function (Faker $faker) {
     return [
         // 'nama' => $faker->colorName,
         // 'deskripsi' => $faker->paragraph,
+        'id_member' => 5,
         'nama' => $faker->randomElement([
             'Pembungkus Plastik',
             'Botol kaca',

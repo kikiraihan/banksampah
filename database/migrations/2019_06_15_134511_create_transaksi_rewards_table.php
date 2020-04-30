@@ -18,9 +18,10 @@ class CreateTransaksiRewardsTable extends Migration
 
             $table->integer('id_nasabah')->unsigned();//FK
             $table->integer('id_reward')->unsigned();//FK
-            $table->string('status');//konfirmasi diambil atau belum diambil
             $table->integer('total_point');
             $table->integer('total_jumlah');
+            $table->boolean('validasi')->default(0);
+            // $table->string('status');//konfirmasi diambil atau belum diambil
 
             $table->timestamps();
             $table->softDeletes();

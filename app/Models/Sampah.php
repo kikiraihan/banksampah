@@ -11,11 +11,12 @@ class Sampah extends Model
         'point',
         'satuan',
         'deskripsi',
+        'id_member',
     ];
 
     //relasi
-    public function nasabah(){
-        return $this->belongsTo('App\Models\Nasabah','id_user');//boleh null
+    public function pemilik(){
+        return $this->belongsTo('App\Models\Member','id_member');//boleh null
     }
 
     public function tranksaksiSampah()

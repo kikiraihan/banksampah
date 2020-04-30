@@ -12,10 +12,15 @@ class Reward extends Model
         'point',
         'stock',
         'foto',
+        'id_member',
     ];
 
 
     //RELASI
+    public function pemilik(){
+        return $this->belongsTo('App\Models\Member','id_member');//boleh null
+    }
+
     public function tranksaksiReward()
     {
         return $this->hasOne('App\Models\TransaksiReward', 'id_reward');
@@ -28,7 +33,6 @@ class Reward extends Model
         if($value!=NULL){
             return '/storage/'.$value;//kalau dihosting musti ada '/storage/' bagitu supaya bkrja dpe link
         }
-        return "link default gambar";
-        // return asset("assets_landing/img/poster-3(387x500).png");//default kalau null
+        return asset("img/image-placeholder.png");//default kalau null
     }
 }

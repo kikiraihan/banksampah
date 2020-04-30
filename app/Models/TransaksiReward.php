@@ -12,9 +12,9 @@ class TransaksiReward extends Model
     protected $fillable = [
         'id_nasabah',
         'id_reward',
-        'status',
         'total_jumlah',
         'total_point',
+        'validasi',
     ];
 
     //relasi

@@ -16,6 +16,7 @@
 
                         <form action="{{ route('sampah.store') }}" method="post">
                             <input type="hidden" name="_method" value="put">
+                            {{-- <input type="hidden" name="id_member" value="{{auth::user()->member->id}}"> --}}
                             {{ csrf_field() }}
 
                             @foreach ($columns as $col)

@@ -16,7 +16,12 @@ class TransaksiSampahController extends Controller
 
     public function index()
     {
-        $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])->get();
+        if(auth::user()->kategori=="Admin")$transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])->get();
+        elseif(auth::user()->kategori=="Member")
+        $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])
+        ->whereHas('sampah', function($sampah){
+            $sampah->where('id_member',auth::user()->member->id);
+        })->get();
 
         // if (!$transaksiSampah->isEmpty()) {
         //     $columns = $transaksiSampah[0]->getFillable();
@@ -52,6 +57,72 @@ class TransaksiSampahController extends Controller
 
         return view('transaksiSampah.perNasabah',compact(['transaksiSampah','columns']));
     }
+
+
+    public function createByNasabah()
+    {
+        // $nasabah=Nasabah::select('id','id_user')->with('user')->get();
+        // $nasabah=auth->user()->nasabah;
+        $sampah=Sampah::whereHas('pemilik', function($pemilik){
+            $pemilik->where('provinsi',auth::user()->nasabah->provinsi);
+        })->get();
+        // dd($sampah);
+
+        $transaksi=new TransaksiSampah;
+        $columns = $transaksi->getFillable();
+
+        return view('transaksiSampah.createByNasabah',compact(['columns','nasabah','sampah']));
+    }
+
+    public function storeByNasabah(Request $request)
+    {
+        //validasi
+
+        $this->validate($request, [
+            'id_sampah'=>"required|string",
+            'total_satuan'=>"required|int",
+        ]);
+        // echo "<p class='ini'>valid</p>";
+        // dd($request->all());
+
+
+        $transaksi=new TransaksiSampah;
+        $sampah=Sampah::find($request->id_sampah);
+        $nasabah=auth::user()->nasabah;
+
+
+        //isi transaksi
+        $transaksi->id_nasabah=$nasabah->id;
+        $transaksi->id_sampah=$sampah->id;
+        $transaksi->total_satuan=$request->total_satuan;
+        $transaksi->total_point= $transaksi->total_satuan * $sampah->point;
+        $transaksi->save();
+
+
+        return redirect()->route('transaksiSampahPerNasabah');
+    }
+
+
+    public function validasi(Request $request){
+
+        $transaksi=TransaksiSampah::find($request->id_transaksi);
+        $transaksi->validasi=1;
+
+        //untuk pembelian point
+        // if(!$this->ceksaldocukup($nasabah, $transaksi))
+        // return redirect()->route('transaksiSampah')
+        //     ->withErrors(['error'=>'saldo tidak cukup']);
+
+        //tambah saldo
+        $transaksi->nasabah->saldo = $transaksi->nasabah->saldo + $transaksi->total_point;
+        $transaksi->nasabah->save();
+
+        $transaksi->save();
+
+        return redirect()->route('transaksiSampah');
+
+    }
+
 
 
 
