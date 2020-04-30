@@ -113,7 +113,7 @@
                     <div class="form-group-row">
                         <div class="row no-gutters">
                         <span class="col-6 p-1"><input type="submit" class="text-white btn btn-success btn-block btn-pill" value="Login"></span>
-                        <span class="col-6 p-1"><a href="{{ route('register') }}" class="btn btn-info w-100 btn-pill" >Sign Up</a></span>
+                        <span class="col-6 p-1"><a href="{{ route('register') }}" class="btn btn-info w-100 btn-pill" >Mendaftar</a></span>
                         <span class="p-1 w-100"><a href="{{ route('landing_page') }}" class="btn btn-outline-secondary w-100 btn-pill" >Kembali</a></span>
                         </div>
                     </div>
