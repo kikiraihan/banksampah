@@ -22,11 +22,12 @@
                 </div>
 
 
-                <div class="col-md-8 d-flex align-items-center">
-                    <div class="card-text">
+                <div class="col-md-8 d-flex align-items-center ">
+                    <div class="card-text text-justify px-3">
+                    <br class="d-block d-md-none">
                         <b class="text-success font-weight-bold">Avatrash</b><br>
                         Sebuah komunitas non profit yang memiliki visi menanamkan kesadaran, lingkungan, dan budaya mengolah sampah dimasyarakat.<br>
-                        <b class="text-secondary font-weight-bold">What we do?</b>
+                        <b class="text-secondary font-weight-bold">What we do?</b><br>
                         Kami menawarkan solusi alternatif mencari pemasukan pasif dari mengumpul sampah di rumah. Selain uang juga bisa ditukar dengan sembako.<br>
                         <span  class="small">
                         <b class="text-success font-weight-bold">Our Team</b> :
