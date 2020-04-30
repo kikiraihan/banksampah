@@ -12,11 +12,18 @@ use Illuminate\Support\Facades\Auth;
 
 class RewardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        // $this->middleware('auth');
+
+        // $this->middleware(['role:Mahasiswa','auth'], ['only' => [
+        //     'mendaftar'
+        // ]]);
+        //$this->middleware(['role:Mahasiswa|Ormawa','auth']);//except index
+    }
+
+
     public function index()
     {
         if(auth::user()->kategori=="Admin")$reward=Reward::all();
@@ -30,11 +37,7 @@ class RewardController extends Controller
         return view('reward.index',compact(['reward','columns']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $reward=new Reward;

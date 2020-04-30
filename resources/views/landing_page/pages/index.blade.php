@@ -2,7 +2,7 @@
 
 
 @section('logo')
-    <div class="site-section" id="sampah-section">
+    <div class="site-section" id="logo-section">
 
         <div class="container">
             <div class="row justify-content-center">
@@ -65,7 +65,10 @@
                         <div class="course-inner-text py-4 px-4">
                             <h2><a href="#" class="text-success">{{$s->nama}}</a></h2>
                             <p>{{ $s->deskripsi }}</p>
-                            <p class="badge badge-success p-2 text-white">{{ $s->point }} point / {{ $s->satuan }} </p>
+                            <div class="justify-content-between d-flex">
+                            <span class="badge badge-success p-2 text-white">{{ $s->point }} point / {{ $s->satuan }} </span>
+                            <span class="badge badge-secondary p-2 text-white"> {{$s->pemilik->provinsi}} </span>
+                            </div>
                         </div>
                     </div>
 
@@ -81,7 +84,7 @@
                 <button class="customPrevBtn btn btn-success m-1">Prev</button>
                 <button class="customNextBtn btn btn-success m-1">Next</button>
             </div> --}}
-            <-- Geser ({{$sampah->count()}}) -->
+            <--  {{$sampah->count()}} -->
         </div>
     </div>
 </div>
@@ -111,6 +114,7 @@
                             <span class="course-price bg-success">{{$r->point}} Point</span>
                             <h3><a href="#" class="text-success">{{$r->nama}}</a></h3>
                             <p>Stock : {{$r->stock}} </p>
+                            <span class="d-block text-right">Area : {{$r->pemilik->provinsi}}</span>
                         </div>
                     </div>
                 @endforeach
@@ -123,7 +127,7 @@
                 <button class="customPrevBtn btn btn-success m-1">Prev</button>
                 <button class="customNextBtn btn btn-success m-1">Next</button>
             </div> --}}
-            <-- Geser ({{$reward->count()}}) -->
+            <-- {{$reward->count()}} -->
         </div>
     </div>
 </div>
