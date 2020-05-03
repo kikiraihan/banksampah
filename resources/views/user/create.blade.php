@@ -38,49 +38,17 @@
                                             <input name="{{$col}}" type="text" hidden value="{{ $kategori }}"
                                             id="{{$col}}" placeholder="Masukan {{$col}}">
 
-                                        @elseif ($col=='provinsi')
-                                            <select  name="{{$col}}" class="custom-select custom-select-sm {{ $errors->has($col) ? ' is-invalid' : '' }}">
-                                                <option class="m-2" value="">-Pilih-</option>
-                                                <option class="m-2" value="Aceh" {{old($col)=="Aceh"?"selected":"" }}>Aceh</option>
-                                                <option class="m-2" value="Sumatera Utara" {{old($col)=="Sumatera Utara"?"selected":"" }}>Sumatera Utara (Sumut)</option>
-                                                <option class="m-2" value="Sumatera Barat" {{old($col)=="Sumatera Barat"?"selected":"" }}>Sumatera Barat (Sumbar)</option>
-                                                <option class="m-2" value="Riau" {{old($col)=="Riau"?"selected":"" }}>Riau</option>
-                                                <option class="m-2" value="Kepulauan Riau" {{old($col)=="Kepulauan Riau"?"selected":"" }}>Kepulauan Riau (Kepri)</option>
-                                                <option class="m-2" value="Jambi" {{old($col)=="Jambi"?"selected":"" }}>Jambi</option>
-                                                <option class="m-2" value="Bengkulu" {{old($col)=="Bengkulu"?"selected":"" }}>Bengkulu</option>
-                                                <option class="m-2" value="Sumatera Selatan" {{old($col)=="Sumatera Selatan"?"selected":"" }}>Sumatera Selatan (Sumsel)</option>
-                                                <option class="m-2" value="Kepulauan Bangka Belitung" {{old($col)=="Kepulauan Bangka Belitung"?"selected":"" }}>Kepulauan Bangka Belitung</option>
-                                                <option class="m-2" value="Lampung" {{old($col)=="Lampung"?"selected":"" }}>Lampung</option>
-                                                <option class="m-2" value="Banten" {{old($col)=="Banten"?"selected":"" }}>Banten</option>
-                                                <option class="m-2" value="Jawa Barat" {{old($col)=="Jawa Barat"?"selected":"" }}>Jawa Barat (Jabar)</option>
-                                                <option class="m-2" value="DKI Jakarta" {{old($col)=="DKI Jakarta"?"selected":"" }}>DKI Jakarta</option>
-                                                <option class="m-2" value="Jawa Tengah" {{old($col)=="Jawa Tengah"?"selected":"" }}>Jawa Tengah (Jateng)</option>
-                                                <option class="m-2" value="Yogyakarta" {{old($col)=="Yogyakarta"?"selected":"" }}>Yogyakarta</option>
-                                                <option class="m-2" value="Jawa Timur" {{old($col)=="Jawa Timur"?"selected":"" }}>Jawa Timur (Jatim)</option>
-                                                <option class="m-2" value="Bali" {{old($col)=="Bali"?"selected":"" }}>Bali</option>
-                                                <option class="m-2" value="Nusa Tenggara Barat" {{old($col)=="Nusa Tenggara Barat"?"selected":"" }}>Nusa Tenggara Barat (NTB)</option>
-                                                <option class="m-2" value="Nusa Tenggara Timur" {{old($col)=="Nusa Tenggara Timur"?"selected":"" }}>Nusa Tenggara Timur (NTT)</option>
-                                                <option class="m-2" value="Kalimantan Utara" {{old($col)=="Kalimantan Utara"?"selected":"" }}>Kalimantan Utara (Kaltara)</option>
-                                                <option class="m-2" value="Kalimantan Barat" {{old($col)=="Kalimantan Barat"?"selected":"" }}>Kalimantan Barat (Kalbar)</option>
-                                                <option class="m-2" value="Kalimantan Tengah" {{old($col)=="Kalimantan Tengah"?"selected":"" }}>Kalimantan Tengah (Kalteng)</option>
-                                                <option class="m-2" value="Kalimantan Selatan" {{old($col)=="Kalimantan Selatan"?"selected":"" }}>Kalimantan Selatan (Kalsel)</option>
-                                                <option class="m-2" value="Kalimantan Timur" {{old($col)=="Kalimantan Timur"?"selected":"" }}>Kalimantan Timur (Kaltim)</option>
-                                                <option class="m-2" value="Gorontalo" {{old($col)=="Gorontalo"?"selected":"" }}>Gorontalo</option>
-                                                <option class="m-2" value="Sulawesi Utara" {{old($col)=="Sulawesi Utara"?"selected":"" }}>Sulawesi Utara (Sulut)</option>
-                                                <option class="m-2" value="Sulawesi Barat" {{old($col)=="Sulawesi Barat"?"selected":"" }}>Sulawesi Barat (Sulbar)</option>
-                                                <option class="m-2" value="Sulawesi Tengah" {{old($col)=="Sulawesi Tengah"?"selected":"" }}>Sulawesi Tengah (Sulteng)</option>
-                                                <option class="m-2" value="Sulawesi Selatan" {{old($col)=="Sulawesi Selatan"?"selected":"" }}>Sulawesi Selatan (Sulsel)</option>
-                                                <option class="m-2" value="Sulawesi Tenggara" {{old($col)=="Sulawesi Tenggara"?"selected":"" }}>Sulawesi Tenggara (Sultra)</option>
-                                                <option class="m-2" value="Maluku Utara" {{old($col)=="Maluku Utara"?"selected":"" }}>Maluku Utara</option>
-                                                <option class="m-2" value="Maluku" {{old($col)=="Maluku"?"selected":"" }}>Maluku</option>
-                                                <option class="m-2" value="Papua" {{old($col)=="Papua"?"selected":"" }}>Papua</option>
-                                                <option class="m-2" value="Papua Barat" {{old($col)=="Papua Barat"?"selected":"" }}>Papua Barat</option>
-
-                                            </select>
                                         @elseif ($col=='password')
                                             <input name="{{$col}}" type="password"
                                             class="form-control form-control-sm {{ $errors->has($col) ? ' is-invalid' : '' }}" value="{{ old($col) }}"
                                             id="{{$col}}" placeholder="Masukan {{$col}}">
+                                        @elseif ($col=='ktp')
+                                            <input name="{{$col}}" type="text"
+                                            class="form-control form-control-sm {{ $errors->has($col) ? ' is-invalid' : '' }}" value="{{ old($col) }}"
+                                            id="{{$col}}" placeholder="Masukan {{$col}}">
+                                            <span class="text-muted small" role="alert">
+                                                *optional
+                                            </span>
                                         @elseif ($col=='alamat')
                                             <textarea name="{{$col}}" type="password" class="form-control form-control-sm {{ $errors->has($col) ? ' is-invalid' : '' }}"
                                                 id="{{$col}}" placeholder="Masukan {{$col}}" cols="30" rows="10">{{ old($col) }}</textarea>
@@ -101,6 +69,71 @@
                             @endforeach
 
 
+
+                        @if($kategori!="Admin")
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-capitalize" for="provinsi">Provinsi </label>
+                            <div class="col-sm-10">
+                            <select class="form-control {{ $errors->has("provinsi") ? ' is-invalid' : '' }}" name="provinsi" id="provinsi">
+                                <option></option>
+
+                                @foreach ($sql_provinsi as $rs_provinsi)
+                                    <option value="{{$rs_provinsi->id}}" {{old("kota")==$rs_provinsi->id?"selected":"" }}>{{$rs_provinsi->name}}</option>;
+                                @endforeach
+                            </select>
+                            @if ($errors->has('provinsi'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('provinsi') }}</strong>
+                            </span>
+                            @endif
+                            <img src="{{ asset('assets-wilayah-indonesia/img/loading.gif') }}" width="35" id="load1" style="display:none;" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-capitalize" for="kota">Kota / Kabupaten </label>
+                            <div class="col-sm-10">
+                                <select class="form-control {{ $errors->has("kota") ? ' is-invalid' : '' }}" name="kota" id="kota">
+                                    {{--  <option value="{{old('kota')}}" selected>{{old('kota')}}</option>;  --}}
+                                    <option></option>;
+                                </select>
+                                @if ($errors->has('kota'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('kota') }}</strong>
+                                </span>
+                                @endif
+                                <img src="{{ asset('assets-wilayah-indonesia/img/loading.gif') }}" width="35" id="load2" style="display:none;" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-capitalize" for="kecamatan">Kecamatan </label>
+                            <div class="col-sm-10">
+                                <select class="form-control {{ $errors->has("kecamatan") ? ' is-invalid' : '' }}" name="kecamatan" id="kecamatan">
+                                    <option></option>
+                                </select>
+                                @if ($errors->has('kecamatan'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('kecamatan') }}</strong>
+                                </span>
+                                @endif
+                                <img src="{{ asset('assets-wilayah-indonesia/img/loading.gif') }}" width="35" id="load3" style="display:none;" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-capitalize" for="kelurahan">Kelurahan </label>
+                            <div class="col-sm-10">
+                                <select class="form-control {{ $errors->has("kelurahan") ? ' is-invalid' : '' }}" name="kelurahan" id="kelurahan">
+                                    <option></option>
+                                </select>
+                                @if ($errors->has('kelurahan'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('kelurahan') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        @endif
+
+
                             <div class="row">
                                 <button type='submit' class='mt-3  btn btn-sm btn-secondary'>Create</button>
                             </div>
@@ -119,9 +152,13 @@
 @endsection
 
 @section('css-halaman')
-
+  <link rel="stylesheet" href="{{ asset('assets-wilayah-indonesia/select2-4.0.6-rc.1/dist/css/select2.min.css') }}">
 @endsection
 
 @section('script-halaman')
-
+  {{--  <script src="{{ asset('assets-wilayah-indonesia/jquery/jquery-3.3.1.min.js') }}"></script>  --}}
+  {{--  <script src="{{ asset('assets-wilayah-indonesia/bootstrap-3.3.7/dist/js/bootstrap.min.js') }}"></script>  --}}
+  <script src="{{ asset('assets-wilayah-indonesia/select2-4.0.6-rc.1/dist/js/select2.min.js') }}"></script>
+  <script src="{{ asset('assets-wilayah-indonesia/select2-4.0.6-rc.1/dist/js/i18n/id.js') }}"></script>
+  <script src="{{ asset('assets-wilayah-indonesia/js/app.js') }}"></script>
 @endsection

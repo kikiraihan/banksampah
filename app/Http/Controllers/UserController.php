@@ -9,10 +9,12 @@ use App\Traits\arrayTrait;
 use App\Models\Nasabah;
 use App\Models\Pengepul;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\wilayahIndonesia;
 
 class UserController extends Controller
 {
     use arrayTrait;
+    use wilayahIndonesia;
 
     public function index()
     {
@@ -41,7 +43,7 @@ class UserController extends Controller
 
 
         $columns=new User;
-        $columns = $columns->getFillable();unset($columns[4]);
+        $columns = $columns->getFillable();unset($columns[5]);
 
         // dd($columns);
         // $columns = $this->removeIdTimestampKategoriPasswordAndRememberTokenCol(Schema::getColumnListing('users'));
@@ -55,19 +57,20 @@ class UserController extends Controller
     {
         $user=new User;
         $columns = $user->getFillable();
-        // $columns['field'] = $user->getFillable();
-        // $columns['tipe'] = ['text',''];
-        // dd($columns);
 
         if($kategori=='Nasabah')
         //tambah
-        array_push($columns,'alamat','ktp','provinsi');
+        array_push($columns,'ktp','alamat');
 
-        if($kategori=='Pengepul')
+        elseif($kategori=='Pengepul')
         //tambah
-        array_push($columns,'alamat','ktp','provinsi');
+        array_push($columns,'ktp','alamat');
 
-        return view('user.create',compact(['columns','kategori']));
+
+        $sql_provinsi =$this->allProvinsi();
+
+
+        return view('user.create',compact(['columns','kategori','sql_provinsi']));
     }
 
 
@@ -76,8 +79,10 @@ class UserController extends Controller
         //validasi
         if($request->kategori=='Nasabah')
         {
+
+
             $this->validate($request, [
-                "kategori" =>"required|in:Nasabah,Admin,Pengepul",
+                "kategori" =>"required|in:Nasabah",
                 "name" =>"required|string",
                 "email" =>"required|email|unique:users",
                 "telepon"=>"required|string|unique:users",
@@ -85,13 +90,19 @@ class UserController extends Controller
                 "password" =>"required|min:6",
                 "alamat"=>"required|string",
                 "ktp"=>"nullable|sometimes|string|unique:nasabahs",
-                "provinsi"=>"required"
+
+                "provinsi"=>"required|string",
+                "kota"=>"required|string",
+                "kecamatan"=>"required|string",
+                "kelurahan"=>"required|string",
             ]);
+
+
         }
-        if($request->kategori=='Pengepul')
+        elseif($request->kategori=='Pengepul')
         {
             $this->validate($request, [
-                "kategori" =>"required|in:Nasabah,Admin,Pengepul",
+                "kategori" =>"required|in:Nasabah",
                 "name" =>"required|string",
                 "email" =>"required|email|unique:users",
                 "telepon"=>"required|string|unique:users",
@@ -99,12 +110,16 @@ class UserController extends Controller
                 "password" =>"required|min:6",
                 "alamat"=>"required|string",
                 "ktp"=>"nullable|sometimes|string|unique:nasabahs",
-                "provinsi"=>"required"
+
+                "provinsi"=>"required|string",
+                "kota"=>"required|string",
+                "kecamatan"=>"required|string",
+                "kelurahan"=>"required|string",
             ]);
         }
         else{
             $this->validate($request, [
-                "kategori" =>"required|in:Nasabah,Admin,Pengepul",
+                "kategori" =>"required|in:Admin",
                 "name" =>"required|string",
                 "email" =>"required|email|unique:users",
                 "telepon"=>"required|string|unique:users",
@@ -129,17 +144,22 @@ class UserController extends Controller
         //simpan kalo nasabah
         if($request->kategori=='Nasabah'){
             $nasabah = new Nasabah;
-            $nasabah->ktp=$request->ktp==NULL?$user->id:$request->ktp;
+            $nasabah->ktp=$request->ktp;//==NULL?$user->id:$request->ktp
             $nasabah->alamat=$request->alamat;
-            $nasabah->provinsi=$request->provinsi;
-            $nasabah->saldo=0;
+            $nasabah->provinsi=$this->provinsi($request->provinsi)->name;
+            $nasabah->kota=$this->kota($request->kota)->name;
+            $nasabah->kecamatan=$this->kecamatan($request->kecamatan)->name;
+            $nasabah->kelurahan=$this->kelurahan($request->kelurahan)->name;
             $user->nasabah()->save($nasabah);
         }
         elseif($request->kategori=='Pengepul'){
             $pengepul = new Pengepul;
-            $pengepul->ktp=$request->ktp==NULL?$user->id:$request->ktp;
+            $pengepul->ktp=$request->ktp;//==NULL?$user->id:$request->ktp
             $pengepul->alamat=$request->alamat;
-            $pengepul->provinsi=$request->provinsi;
+            $pengepul->provinsi=$this->provinsi($request->provinsi)->name;
+            $pengepul->kota=$this->kota($request->kota)->name;
+            $pengepul->kecamatan=$this->kecamatan($request->kecamatan)->name;
+            $pengepul->kelurahan=$this->kelurahan($request->kelurahan)->name;
             $user->pengepul()->save($pengepul);
         }
 
@@ -162,13 +182,17 @@ class UserController extends Controller
 
         if($user->kategori=='Nasabah')
         //tambah
-        array_push($columns,'alamat','ktp','provinsi');
+        array_push($columns,'ktp','alamat');
 
         if($user->kategori=='Pengepul')
         //tambah
-        array_push($columns,'alamat','ktp','provinsi');
+        array_push($columns,'ktp','alamat');
 
-        return view('user.edit',compact(['columns','user']));
+
+        $sql_provinsi =$this->allProvinsi();
+
+
+        return view('user.edit',compact(['columns','user','sql_provinsi']));
     }
 
 
@@ -182,15 +206,19 @@ class UserController extends Controller
             $id_kategori=$user->katget->id;
 
             $this->validate($request, [
-                // "kategori" =>"required|in:Nasabah,Admin,Pengepul",
+                // "kategori" =>"required|in:Nasabah",
                 "name" =>"required|string",
                 "email" =>'sometimes|required|email|unique:users,id,' . $id,
                 "telepon"=>"sometimes|required|string|unique:users,id," . $id,
                 "username"=>"sometimes|required|string|unique:users,id," . $id,
                 "password" =>"nullable|min:6",
-                "alamat"=>"required|string",
-                "ktp"=>"sometimes|string|unique:nasabahs,id,' .$id_kategori,",
-                "provinsi"=>"required"
+                "alamat"=>"sometimes|required|string",
+                "ktp"=>"nullable|string|unique:nasabahs,id,' .$id_kategori,",
+
+                "provinsi"=>"nullable|string",
+                "kota"=>"nullable|string",
+                "kecamatan"=>"nullable|string",
+                "kelurahan"=>"nullable|string",
             ]);
 
 
@@ -200,15 +228,19 @@ class UserController extends Controller
             $id_kategori=$user->katget->id;
 
             $this->validate($request, [
-                // "kategori" =>"required|in:Nasabah,Admin,Pengepul",
+                // "kategori" =>"required|in:Pengepul",
                 "name" =>"required|string",
                 "email" =>'sometimes|required|email|unique:users,id,' . $id,
                 "telepon"=>"sometimes|required|string|unique:users,id," . $id,
                 "username"=>"sometimes|required|string|unique:users,id," . $id,
                 "password" =>"nullable|min:6",
-                "alamat"=>"required|string",
-                "ktp"=>"sometimes|string|unique:pengepuls,id,' .$id_kategori,",
-                "provinsi"=>"required"
+                "alamat"=>"sometimes|required|string",
+                "ktp"=>"nullable|string|unique:pengepuls,id,' .$id_kategori,",
+
+                "provinsi"=>"nullable|string",
+                "kota"=>"nullable|string",
+                "kecamatan"=>"nullable|string",
+                "kelurahan"=>"nullable|string",
             ]);
         }
         else{
@@ -221,7 +253,7 @@ class UserController extends Controller
                 "password" =>"nullable|min:6",
             ]);
         }
-        // echo "<p class='ini'>valid</p>";
+        echo "<p class='ini'>valid</p>";
         // dd($request->ktp);
 
         //simpan
@@ -238,18 +270,49 @@ class UserController extends Controller
         if($user->kategori=='Nasabah'){
 
             $nasabah=$user->nasabah;
-            $nasabah->ktp=$request->ktp;
-            $nasabah->alamat=$request->alamat;
-            $nasabah->provinsi=$request->provinsi;
+            $columns = $nasabah->getFillable();
+            foreach($columns as $col)
+            {
+                if($request->$col!=null) //jika tidak null, karena kalau pass null jangan insert
+                {
+                    if($col=='provinsi')
+                    $nasabah->provinsi=$this->provinsi($request->provinsi)->name;
+                    elseif($col=='kota')
+                    $nasabah->kota=$this->kota($request->kota)->name;
+                    elseif($col=='kecamatan')
+                    $nasabah->kecamatan=$this->kecamatan($request->kecamatan)->name;
+                    elseif($col=='kelurahan')
+                    $nasabah->kelurahan=$this->kelurahan($request->kelurahan)->name;
+                    else
+                    $nasabah->$col=$request->$col;
+
+                }
+            }
+
             $user->nasabah()->save($nasabah);
         }
 
         elseif($user->kategori=='Pengepul'){
 
             $pengepul=$user->pengepul;
-            $pengepul->ktp=$request->ktp;
-            $pengepul->alamat=$request->alamat;
-            $pengepul->provinsi=$request->provinsi;
+            $columns = $pengepul->getFillable();
+            foreach($columns as $col)
+            {
+                if($request->$col!=null) //jika tidak null, karena kalau pass null jangan insert
+                {
+                    if($col=='provinsi')
+                    $pengepul->provinsi=$this->provinsi($request->provinsi)->name;
+                    elseif($col=='kota')
+                    $pengepul->kota=$this->kota($request->kota)->name;
+                    elseif($col=='kecamatan')
+                    $pengepul->kecamatan=$this->kecamatan($request->kecamatan)->name;
+                    elseif($col=='kelurahan')
+                    $pengepul->kelurahan=$this->kelurahan($request->kelurahan)->name;
+                    else
+                    $pengepul->$col=$request->$col;
+
+                }
+            }
             $user->pengepul()->save($pengepul);
         }
 

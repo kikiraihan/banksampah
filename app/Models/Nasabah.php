@@ -10,6 +10,7 @@ class Nasabah extends Model
         'id_user',
         'ktp',
         'alamat',
+
         'provinsi',
         'kota',
         'kecamatan',

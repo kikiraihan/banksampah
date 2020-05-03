@@ -40,12 +40,29 @@ class LandingPageController extends Controller
         // //tambah
         // array_push($columns,'updated_at');
 
+
+        $nasProv = Nasabah::with('transaksiSampahs')->get()->groupBy('provinsi');
+        foreach ($nasProv as $provinsi => $nasabah) {
+            $transProv[$provinsi] = 0;
+            foreach ($nasabah as $n) {
+                $transProv[$provinsi] = $transProv[$provinsi]+count($n->transaksiSampahs);
+            }
+        }
+
+        //nasabah
+        foreach ($nasProv as $provinsi => $nasabah) {
+            $nasabahProvinsi[$provinsi] = count($nasabah);
+        }
+
+
+
         return view('landing_page.pages.index',compact([
             'nNasabah',
             'nTransaksiSampah',
             'sampah',
             'reward',
             'nasabah',
+            'transProv','nasabahProvinsi'
             ]));
     }
 }

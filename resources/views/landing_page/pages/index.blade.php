@@ -39,17 +39,57 @@
             </div>
         </div>
 
-        <br><br>
 
     </div>
 @endsection
+
+
+@section('chart')
+
+<div class="site-section" id="chart-section">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
+                <h2 class="section-title">Trend Nasional</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+        <div class="container-fluid">
+            <div class="card ">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-body ">
+                        <h3>Transaksi Sampah Per Provinsi</h3>
+                        <canvas id="chart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body ">
+                        <h3>Nasabah per Provinsi</h3>
+                        <canvas id="nasabah-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>
+@endsection
+
+
 
 @section('jenis-sampah')
 <div class="site-section" id="sampah-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
-                <h2 class="section-title">Tukar Sampah Dengan Poin</h2>
+                <h2 class="section-title">Tukar Sampah</h2>
             </div>
         </div>
     </div>
@@ -66,8 +106,8 @@
                             <h2><a href="#" class="text-success">{{$s->nama}}</a></h2>
                             <p>{{ $s->deskripsi }}</p>
                             <div class="justify-content-between d-flex">
-                            <span class="badge badge-success p-2 text-white">{{ $s->point }} point / {{ $s->satuan }} </span>
-                            <span class="badge badge-secondary p-2 text-white"> {{$s->pemilik->provinsi}} </span>
+                            <span class="badge badge-success p-2 text-white"><span class="small font-weight-bold">{{ $s->harga }} Rupiah / {{ $s->per_angka.$s->per_satuan }} </span></span>
+                            <span class="badge badge-secondary p-2 "> {{$s->pemilik->user->name}} <span class="small">-{{$s->pemilik->provinsi}}</span> </span>
                             </div>
                         </div>
                     </div>
@@ -91,8 +131,14 @@
 @endsection
 
 @section('rewards')
+
+
+
+
+
 <div class="site-section" id="rewards-section">
     <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
                 <h2 class="section-title">Tukar Poin Dengan Hadiah</h2>
@@ -160,11 +206,102 @@
             @endforeach
         </div>
         <br><br><br>
-        <a href="{{ route('nasabahTrans') }}" class="btn btn-outline-success btn-block ml-auto mr-auto col-4">Semua Nasabah</a>
+        <a href="{{ route('nasabahTrans') }}" class="btn btn-outline-success btn-block ml-auto mr-auto col-md-4">Semua Nasabah</a>
     </div>
 </div>
 @endsection
 
+
+@section('css-halaman')
+    <link rel="stylesheet" href="{{ asset('assets/Chart.min.css') }}">
+@endsection
+
+
 @section('script-halaman')
 
+<script src="{{ asset('assets/Chart.min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+            if($('#chart').length){
+                let chart = $('#chart')[0].getContext('2d');
+                let myChart = new Chart(chart, {
+                    type: 'bar',
+                    data: {
+                        labels: {!!'["' . implode('", "', array_keys($transProv) ) . '"]'!!},
+                        datasets: [{
+                            label: 'Jumlah Transaksi',
+                            data: {!!'["' . implode('", "', $transProv ) . '"]'!!},
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+
+            if($('#nasabah-chart').length){
+                let nasabahChart = $('#nasabah-chart')[0].getContext('2d');
+                let myChart = new Chart(nasabahChart, {
+                    type: 'bar',
+                    data: {
+                        labels: {!!'["' . implode('", "', array_keys($nasabahProvinsi) ) . '"]'!!},
+                        datasets: [{
+                            label: 'Jumlah Transaksi',
+                            data: {!!'["' . implode('", "', $nasabahProvinsi ) . '"]'!!},
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+        })
+</script>
 @endsection
+

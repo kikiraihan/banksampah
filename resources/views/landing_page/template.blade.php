@@ -60,6 +60,7 @@
 
     {{--  Manifest.Json PWA  --}}
     <link rel="manifest" href="{{ asset('manifest.json') }}">
+    @yield('css-halaman')
 
 </head>
 
@@ -117,14 +118,16 @@
             </div>
         </div>
 
-        {{-- Halaman Login --}}
+
         @yield('logo')
+
+        @yield('chart')
 
         {{-- Halaman Jenis Sampah --}}
         @yield('jenis-sampah')
 
         {{-- Halaman Rewards --}}
-        @yield('rewards')
+        {{--  @yield('rewards')  --}}
 
         {{-- Halaman User Point --}}
         @yield('user-point')

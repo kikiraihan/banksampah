@@ -16,8 +16,10 @@
                     <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
                         <li><a href="#home-section" class="nav-link">Beranda</a></li>
                         {{-- <li><a href="#login-section" class="nav-link">Login</a></li> --}}
+                        <li><a href="#logo-section" class="nav-link">About</a></li>
+                        <li><a href="#chart-section" class="nav-link">Trend</a></li>
                         <li><a href="#sampah-section" class="nav-link">Jenis Sampah</a></li>
-                        <li><a href="#rewards-section" class="nav-link">Hadiah</a></li>
+                        {{--  <li><a href="#rewards-section" class="nav-link">Hadiah</a></li>  --}}
                         <li><a href="#users-section" class="nav-link">Nasabah</a></li>
                     </ul>
                 </nav>
@@ -34,7 +36,7 @@
                 </li>
                 @else
                 <li class="nav-item dropdown d-sm-none d-lg-inline">
-                    <a id="navbarDropdown" class="small nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="small nav-link dropdown-toggle text-secondary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         @if(Auth::user()->kategori=='Nasabah')
                         {{ Auth::user()->nasabah->saldo }} pts
                         <i class="fas fa-donate text-success"></i> |

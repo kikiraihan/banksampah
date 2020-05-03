@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\DB;
 use App\Models\Nasabah;
 use App\Traits\wilayahIndonesia;
 
@@ -131,7 +130,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
 
-        $sql_provinsi =DB::table('provinces')->orderBy('name','ASC')->get();//DB::select("SELECT * FROM provinces ORDER BY name ASC");
+        $sql_provinsi =$this->allProvinsi();
 
         return view('auth.register',compact(['sql_provinsi']));
     }

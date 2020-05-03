@@ -5,76 +5,17 @@
 
 @section('content')
 <div class="container">
-    {{--  <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>  --}}
 
 
-    <div class="row justify-content-center text-center">
-        <div class="container">
-        <form id="formBase" method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+
+
+
+
+    <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-5 col-lg-4">
+
+      <form id="formBase" method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
             @csrf
 
             <div class="form-login-regis">
@@ -82,8 +23,9 @@
                     <h3 class="h4 text-black mb-4">Login</h3>
 
                     <div class="form-group">
-                        <input type="text" placeholder="Email Addresss"
-                        class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                        <label class="sr-only" for="input1-signin-02">Email</label>
+                        <input class="{{ $errors->has('email') ? ' is-invalid' : '' }} form-control my-3 bg-light"
+                        id="input1-signin-02" type="email" placeholder="Email"
                         name="email" value="{{ old('email') }}" required>
 
                         @if ($errors->has('email'))
@@ -96,8 +38,9 @@
 
 
                     <div class="form-group">
-                        <input type="password" placeholder="Password"
-                        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                        <label class="sr-only" for="input3-signin-02">Password</label>
+                        <input class="form-control my-3 bg-light {{ $errors->has('password') ? ' is-invalid' : '' }}"
+                        id="input3-signin-02" type="password" placeholder="Password"
                         name="password" required>
                         @if ($errors->has('password'))
                             <span class="invalid-feedback" role="alert">
@@ -105,23 +48,40 @@
                             </span>
                         @endif
                     </div>
-                    <div class="form-group">
-
-                        {{--  <a href="#" class="ml-3 btn btn-outline-secondary btn-pill register-button">
-                            Register</a>  --}}
-                    </div>
                     <div class="form-group-row">
                         <div class="row no-gutters">
-                        <span class="col-6 p-1"><input type="submit" class="text-white btn btn-success btn-block btn-pill" value="Login"></span>
-                        <span class="col-6 p-1"><a href="{{ route('register') }}" class="btn btn-info w-100 btn-pill" >Mendaftar</a></span>
-                        <span class="p-1 w-100"><a href="{{ route('landing_page') }}" class="btn btn-outline-secondary w-100 btn-pill" >Kembali</a></span>
+                        <span class="col-6 pr-1"><input type="submit" class="btn btn-outline-primary btn-block py-2 mr-3 btn-pill" value="Login!"></span>
+                        <span class="col-6 pl-1"><a href="{{ route('register') }}" class="btn btn-primary btn-block py-2 mt-0 btn-pill" >Mendaftar!</a></span>
+                        <span class="w-100 mt-2"><a href="{{ route('landing_page') }}" class="btn btn-outline-secondary w-100 btn-pill" >Kembali</a></span>
                         </div>
                     </div>
+                    {{--  <p class="text-secondary text-muted mt-3" data-config-id="terms">By signing in you agree with the <a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a>.</p>  --}}
 
             </div>
 
         </form>
-        </div>
+
+
+
+
+      </div>
     </div>
+  </div>
+
+
+
+
+
+    <br><br><br>
+
+    <div class="card p-0 text-center" style="overflow:hidden;">
+        <a class="d-xl-none" href="https://my.idcloudhost.com/aff.php?aff=5605"><img src="https://idcloudhost.com/wp-content/uploads/2017/01/970x250.png" height="100" width="388.2" border="0" alt="IDCloudHost | SSD Cloud Hosting Indonesia" /></a>
+        <a class="d-none d-xl-inline " href="https://my.idcloudhost.com/aff.php?aff=5605"><img src="https://idcloudhost.com/wp-content/uploads/2017/01/IDCloudHost-SSD-Cloud-Hosting-Indonesia-970x250.jpg" height="250" width="970" border="0" alt="IDCloudHost | SSD Cloud Hosting Indonesia" /></a>
+        <p class="lead small container pt-3">
+            Website Avatrash di hosting menggunakan teknologi web server dari idcloudhost.com
+            <a class="d-block btn btn-info  mt-1" href="https://my.idcloudhost.com/aff.php?aff=5605"> Buat startup saya! </a>
+        </p>
+    </div>
+
 </div>
 @endsection

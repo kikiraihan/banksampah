@@ -34,7 +34,7 @@
                         </tbody>
                     </table>
 
-                    @role ('Nasabah')
+                    @role ('Nasabah|Pengepul')
 
                         <div class="collapse" id="collapseExample">
                         <p class="text-right"><span class="badge badge-info">{{$user->kategori}}</span></p>
@@ -42,27 +42,27 @@
                         <tbody>
                         <tr>
                             <td>Ktp :</td>
-                            <td>{{$user->nasabah->ktp==NULL?'-':$user->ktp}}</td>
+                            <td>{{$user->katget->ktp==NULL?'-':$user->ktp}}</td>
                         </tr>
                         <tr>
                             <td>Provinsi</td>
-                            <td>{{$user->nasabah->provinsi}}</td>
+                            <td>{{$user->katget->provinsi}}</td>
                         </tr>
                         <tr>
                             <td>Kota</td>
-                            <td>{{$user->nasabah->kota}}</td>
+                            <td>{{$user->katget->kota}}</td>
                         </tr>
                         <tr>
                             <td>Kecamatan</td>
-                            <td>{{$user->nasabah->kecamatan}}</td>
+                            <td>{{$user->katget->kecamatan}}</td>
                         </tr>
                         <tr>
                             <td>Kelurahan</td>
-                            <td>{{$user->nasabah->kelurahan}}</td>
+                            <td>{{$user->katget->kelurahan}}</td>
                         </tr>
                         <tr>
                             <td>Alamat</td>
-                            <td>{{$user->nasabah->alamat}}</td>
+                            <td>{{$user->katget->alamat}}</td>
                         </tr>
                         </tbody>
                         </table>
@@ -84,20 +84,12 @@
             </section>
         </div>
 
-        <div class="d-none d-xl-flex col-md-3">
-            <div class=" card text-center"style="overflow:hidden;">
-                <a href="https://my.idcloudhost.com/aff.php?aff=5605"><img src="https://idcloudhost.com/wp-content/uploads/2017/01/250x250.png" height="250" width="250" border="0" alt="IDCloudHost | SSD Cloud Hosting Indonesia" /></a>
-                <a href="https://my.idcloudhost.com/aff.php?aff=5605"><img src="https://idcloudhost.com/wp-content/uploads/2017/01/IDCloudHost-SSD-Cloud-Hosting-Indonesia-250x250.jpg" height="250" width="250" border="0" alt="IDCloudHost | SSD Cloud Hosting Indonesia" /></a>
-            </div>
-        </div>
+
 
     </div>
 
 
-    <div class="d-flex d-xl-none  card p-0 text-center" style="overflow:hidden;">
-        <a href="https://my.idcloudhost.com/aff.php?aff=5605"><img src="https://idcloudhost.com/wp-content/uploads/2017/01/IDCloudHost-SSD-Cloud-Hosting-Indonesia-970x250.jpg" height="100" width="388.2" border="0" alt="IDCloudHost | SSD Cloud Hosting Indonesia" /></a>
-    </div>
-    <br class="d-flex d-xl-none">
+
 
 
 
@@ -128,15 +120,19 @@
     </div>
 
 
-    <br>
-    <div class="d-none d-xl-flex  card p-0 text-center" style="overflow:hidden;">
-        <a href="https://my.idcloudhost.com/aff.php?aff=5605"><img src="https://idcloudhost.com/wp-content/uploads/2017/01/IDCloudHost-SSD-Cloud-Hosting-Indonesia-970x250.jpg" height="250" width="970" border="0" alt="IDCloudHost | SSD Cloud Hosting Indonesia" /></a>
-    </div>
+
 
 </div>
 @endsection
 
+
+@section('css-halaman')
+<link rel="stylesheet" href="{{ asset('assets/Chart.min.css') }}">
+@endsection
+
+
 @section('script-halaman')
+<script src="{{ asset('assets/Chart.min.js') }}"></script>
 <script>
     $(document).ready(function(){
             if($('#chart').length){

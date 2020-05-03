@@ -43,7 +43,7 @@
     <link rel="manifest" href="{{ asset('manifest.json') }}">
 
     @yield('css-halaman')
-    <link rel="stylesheet" href="{{ asset('assets/Chart.min.css') }}">
+
 </head>
 
 <body style="{{ $bodyStyle }}">
@@ -95,7 +95,7 @@
 
     @yield('script-halaman')
 
-    <script src="{{ asset('assets/Chart.min.js') }}"></script>
+
 
     <script src="{{ asset('assets/script.js') }}"></script>
 

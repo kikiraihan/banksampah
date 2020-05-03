@@ -33,6 +33,13 @@ trait wilayahIndonesia
 
 
 
+    public function allProvinsi()
+    {
+        return DB::table('provinces')->orderBy('name','ASC')->get();//DB::select("SELECT * FROM provinces ORDER BY name ASC");
+    }
+
+
+
 }
 
 
