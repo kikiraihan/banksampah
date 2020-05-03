@@ -30,7 +30,7 @@ class UsersTableSeeders extends Seeder
                 factory(App\Models\Nasabah::class,1)
                 ->create([
                     'id_user'=>$user->id,
-                    'provinsi'=>'Gorontalo'
+                    'provinsi'=>'GORONTALO'
                 ]);
 
                 $user->assignRole('Nasabah');
@@ -161,7 +161,7 @@ class UsersTableSeeders extends Seeder
 
         $pengepul->id_user=$user->id;
         $pengepul->ktp="1234567";
-        $pengepul->provinsi="Gorontalo";
+        $pengepul->provinsi="GORONTALO";
         $pengepul->alamat="Jl. Sawah Besar, Desa Talango, Kec. Kabila, Kab. Bone Bolango";
         $pengepul->save();
     }
