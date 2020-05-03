@@ -17,7 +17,7 @@ class CreateRewardsTable extends Migration
             $table->increments('id');//PK
 
             $table->string('nama',30)->unique();
-            $table->integer('point');
+            $table->integer('point_harga');
             $table->integer('stock');
             $table->string('foto',191)->nullable();
             $table->boolean('validasi')->default(0);
@@ -25,8 +25,8 @@ class CreateRewardsTable extends Migration
             $table->timestamps();
             // $table->softDeletes();
 
-            $table->integer('id_member')->unsigned();//FK
-            $table->foreign('id_member')->references('id')->on('members')
+            $table->integer('id_challengge')->unsigned();//FK
+            $table->foreign('id_challengge')->references('id')->on('challengges')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

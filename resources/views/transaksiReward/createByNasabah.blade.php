@@ -13,8 +13,8 @@
         @if ($reward->isEmpty())
         <div class="alert alert-info small text-center" role="alert">
             <strong>Kosong..</strong> <br>
-            Member di area anda belum membuat daftar reward yang diterima.
-            {{--  Silahkan hubungi member terdekat.  --}}
+            Challengger di area anda belum membuat daftar reward yang diterima.
+            {{--  Silahkan hubungi challengger terdekat.  --}}
         </div>
         @else
         @if ($errors->any())

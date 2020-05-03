@@ -27,7 +27,7 @@
                 <div class="card-body container px-2">
 
 
-                    @role('Member')
+                    @role('Challengger')
                     <a href="{{ route('transaksiReward.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah Manual +</a>
                     <hr>
                     @endrole

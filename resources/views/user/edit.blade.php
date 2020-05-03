@@ -17,7 +17,7 @@
                         <form action="{{ route('user.update', ['id'=>$user->id]) }}" method="post">
                             <input type="hidden" name="_method" value="put">
                             {{ csrf_field() }}
-                            <input name="id_kategori" type="text" hidden value="{{ $user->katget->id }}">
+                            {{-- <input name="id_kategori" type="text" hidden value="{{ $user->katget->id }}"> --}}
 
                             @foreach ($columns as $col)
                                 <div class="form-group row">
@@ -29,10 +29,10 @@
                                                 <option class="m-2" value="">-Pilih-</option>
                                                 <option class="m-2" value="Nasabah" {{old($col,$user->$col) =="Nasabah"?"selected":"" }}>Nasabah</option>
                                                 <option class="m-2" value="Admin" {{old($col,$user->$col) =="Admin"?"selected":"" }}>Admin</option>
-                                                <option class="m-2" value="Member" {{old($col,$user->$col) =="Member"?"selected":"" }}>Member</option>
+                                                <option class="m-2" value="Pengepul" {{old($col,$user->$col) =="Pengepul"?"selected":"" }}>Pengepul</option>
                                             </select>
 
-                                            <input name="{{$col}}" type="text" hidden value="{{ $user->kategori }}"id="{{$col}}">
+                                            {{-- <input name="{{$col}}" type="text" hidden value="{{ $user->kategori }}"id="{{$col}}"> --}}
 
 
                                         @elseif ($col=='provinsi')

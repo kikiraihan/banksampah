@@ -8,9 +8,7 @@ $factory->define(App\Models\Nasabah::class, function (Faker $faker) {
         // 'id_user',
         'ktp'       => $faker->creditCardNumber,
         'alamat'    => $faker->address,
-        'saldo'     => $faker->randomElement([2000,1000,3000]),
-        'dusun'     => $faker->randomElement(['sukamaju','sukabangkit','sukabersih']),
-        'provinsi'  => $faker->randomElement(['Gorontalo','Jawa Timur','Yogyakarta']),
+        // 'saldo'     => $faker->randomElement([2000,1000,3000]),
 
     ];
 });

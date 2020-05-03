@@ -18,7 +18,7 @@
                             'id_nasabah',
                             'id_sampah',
                             'total_point',
-                            'total_satuan',
+                            'total_jumlah',
                             --}}
 
                         <form action="{{ route('transaksiSampah.store') }}" method="post" enctype="multipart/form-data">
@@ -66,15 +66,15 @@
 
 
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-form-label-sm text-capitalize" for="total_satuan">Total Satuan</label>
+                                    <label class="col-sm-2 col-form-label col-form-label-sm text-capitalize" for="total_jumlah">Total Jumlah</label>
                                     <div class="col-sm-10">
 
-                                        <input name="total_satuan" type="text" class="form-control form-control-sm
-                                        {{ $errors->has('total_satuan') ? ' is-invalid' : '' }}" value="{{ old('total_satuan') }}"
-                                        id="total_satuan" placeholder="kg, gram, ..">
+                                        <input name="total_jumlah" type="number" class="form-control form-control-sm
+                                        {{ $errors->has('total_jumlah') ? ' is-invalid' : '' }}" value="{{ old('total_jumlah') }}"
+                                        id="total_jumlah" placeholder="masukan angka">
 
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>*{{ $errors->first('total_satuan') }}</strong>
+                                            <strong>*{{ $errors->first('total_jumlah') }}</strong>
                                         </span>
                                     </div>
                                 </div>

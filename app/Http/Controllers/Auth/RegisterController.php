@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use App\Models\Nasabah;
+use App\Traits\wilayahIndonesia;
 
 class RegisterController extends Controller
 {
@@ -23,6 +25,8 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    use wilayahIndonesia;
 
     /**
      * Where to redirect users after registration.
@@ -62,14 +66,17 @@ class RegisterController extends Controller
 
             "name" =>"required|string",
             "email" =>"required|email|unique:users",
-            "password" =>"required|min:6",
-            "ktp"=>"nullable|string|unique:nasabahs",
-            "alamat"=>"required|string",
-            "provinsi"=>"required|string",
             "telepon"=>"required|string|unique:users",
+            "ktp"=>"nullable|string|unique:nasabahs",
+
+            "provinsi"=>"required|string",
+            "kota"=>"required|string",
+            "kecamatan"=>"required|string",
+            "kelurahan"=>"required|string",
+            "alamat"=>"required|string",
+
             "username"=>"required|string|unique:users",
-            // "kategori" =>"required|in:Nasabah,Admin",
-            "dusun"=>"nullable|string"
+            "password" =>"required|min:6",
         ]);
     }
 
@@ -81,7 +88,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // dd($data['provinsi']);
+
+        // dd($this->kota($data['kota'])->name);
+
 
         $user=User::create([
             'name' => $data['name'],
@@ -92,23 +101,24 @@ class RegisterController extends Controller
             'kategori'=>"Nasabah",
         ]);
 
-        if($data['ktp']==NULL)
-        $ktp=$user->id;
-        else
-        $ktp=$data['ktp'];
+        // if($data['ktp']==NULL)
+        // $ktp=$user->id;
+        // else
+        // $ktp=$data['ktp'];
 
-        if($data['dusun']==NULL)
-        $dusun=1;
-        else
-        $dusun=$data['dusun'];
+        // if($data['dusun']==NULL)
+        // $dusun=1;
+        // else
+        // $dusun=$data['dusun'];
 
         Nasabah::create([
             'id_user'=>$user->id,
-            'ktp'=> $ktp,
+            'ktp'=> $data['ktp'],//$ktp,
             'alamat'=> $data['alamat'],
-            'dusun'=> $dusun,
-            'provinsi'=> $data['provinsi'],
-            'saldo'=> 0,
+            'provinsi'=> $this->provinsi($data['provinsi'])->name,
+            'kota'=> $this->kota($data['kota'])->name,
+            'kecamatan'=> $this->kecamatan($data['kecamatan'])->name,
+            'kelurahan'=> $this->kelurahan($data['kelurahan'])->name,
         ]);
 
         $user->assignRole('Nasabah');
@@ -116,4 +126,16 @@ class RegisterController extends Controller
         return $user;
 
     }
+
+
+    public function showRegistrationForm()
+    {
+
+        $sql_provinsi =DB::table('provinces')->orderBy('name','ASC')->get();//DB::select("SELECT * FROM provinces ORDER BY name ASC");
+
+        return view('auth.register',compact(['sql_provinsi']));
+    }
+
+
+
 }

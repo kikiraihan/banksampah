@@ -17,16 +17,19 @@ class CreateSampahsTable extends Migration
             $table->increments('id');//PK
 
             $table->string('nama',30);
-            $table->integer('point');
+            $table->integer('harga');
             $table->text('deskripsi',191);
-            $table->string('satuan',10);
+            $table->integer('per_angka');
+            $table->string('per_satuan',10);
+            // 100          gram
+            //per_angka  per_satuan
 
             $table->timestamps();
             // $table->softDeletes();
 
 
-            $table->integer('id_member')->unsigned();//FK
-            $table->foreign('id_member')->references('id')->on('members')
+            $table->integer('id_pengepul')->unsigned();//FK
+            $table->foreign('id_pengepul')->references('id')->on('pengepuls')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

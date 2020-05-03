@@ -36,12 +36,12 @@
             </a>
         </li>
 
-        <li >
+        {{-- <li >
             <a href="{{ route('transaksiRewardByNasabah.create') }}" >
                 <i class="fas fa-gift"></i>
                 <small>Hadiah</small>
             </a>
-        </li>
+        </li> --}}
 
 
 
@@ -58,17 +58,17 @@
                     </a>
                 </li>
 
-                <li >
+                {{-- <li >
                     <a href="{{ route('transaksiRewardPerNasabah') }}" >
                         <small><i class="fas fa-gift"></i> Reward</small>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
 
         @endrole
 
-        @role('Admin|Member')
+        @role('Admin|Pengepul')
         <li>
             <a href="{{ route('user') }}" >
                 <i class="far fa-id-badge"></i>
@@ -84,12 +84,12 @@
             </a>
         </li>
 
-        <li >
+        {{-- <li >
             <a href="{{ route('reward') }}" >
                 <i class="fas fa-gift"></i>
                 <small>Hadiah</small>
             </a>
-        </li>
+        </li> --}}
 
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -101,14 +101,15 @@
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
                     <a href="{{ route('transaksiSampah') }}" >
+                        <i class="fas fa-recycle"></i>
                         <small>Sampah</small>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('transaksiReward') }}" >
                         <small>Reward</small>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
 

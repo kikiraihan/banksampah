@@ -27,7 +27,7 @@
                 <div class="card-body container px-2">
 
 
-                    @role('Member')
+                    @role('Pengepul')
                     <a href="{{ route('transaksiSampah.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah Manual +</a>
                     <hr>
                     @endrole
@@ -63,7 +63,7 @@
                                             <td>
                                                 <i class="text-success">#{{ $transaksiSampah->$col }}</i> {{ $transaksiSampah->sampah->nama }}
                                             </td>
-                                            @elseif ($col=="total_satuan")
+                                            @elseif ($col=="total_jumlah")
                                             <td>
                                                 {{ $transaksiSampah->$col }} {{ $transaksiSampah->sampah->satuan }}
                                             </td>
@@ -111,7 +111,7 @@
 
                         <div class="table-responsive">
                             <table class="table table-striped table-borderless border border-white-50 table-sm small">
-                                <caption class="text-left text-success">Divalidasi</caption>
+                                <caption class="text-left text-success">Divalidasi / sudah dibayarkan</caption>
                                 <thead class="thead-light text-center">
                                     <tr>
                                         <th>No</th>
@@ -140,7 +140,7 @@
                                             <td>
                                                 <i class="text-success">#{{ $transaksiValid->$col }}</i> {{ $transaksiValid->sampah->nama }}
                                             </td>
-                                            @elseif ($col=="total_satuan")
+                                            @elseif ($col=="total_jumlah")
                                             <td>
                                                 {{ $transaksiValid->$col }} {{ $transaksiValid->sampah->satuan }}
                                             </td>
@@ -156,24 +156,24 @@
                                                 </span>
                                                 <div class="dropdown-menu">
 
-                                                    <form style="display: inline;" method="post" action="{{ route('transaksiSampah.validasi') }}">
+                                                    <form style="display: inline;" method="post" action="{{ route('transaksiSampah.validasi.batal') }}">
                                                             <input type="hidden" name="_method" value="PUT">
                                                             <input type="hidden" name="id_transaksi" value="{{$transaksiValid->id}}">
                                                             {{ csrf_field()}}
-                                                        <button class="dropdown-item small text-success" >
-                                                            <i class="fas fa-check"></i>
-                                                            Validasi
+                                                        <button class="dropdown-item small text-danger" >
+                                                            <i class="fas fa-window-close"></i>
+                                                            Batalkan Validasi
                                                         </button>
                                                     </form>
 
-                                                    <form style="display: inline;" method="post" action="{{ route('transaksiSampah.destroy', ['id'=>$transaksiValid->id]) }}">
+                                                    {{-- <form style="display: inline;" method="post" action="{{ route('transaksiSampah.destroy', ['id'=>$transaksiValid->id]) }}">
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             {{ csrf_field()}}
                                                         <button class="dropdown-item small text-danger" >
                                                             <i class="fas fa-window-close"></i>
                                                             Batalkan
                                                         </button>
-                                                    </form>
+                                                    </form> --}}
 
                                                 </div>
 

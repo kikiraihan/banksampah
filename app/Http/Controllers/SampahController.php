@@ -12,7 +12,7 @@ class SampahController extends Controller
     public function index()
     {
         if(auth::user()->kategori=="Admin")$sampah=Sampah::all();
-        elseif(auth::user()->kategori=="Member")$sampah=Sampah::where('id_member',auth::user()->member->id)->get();
+        elseif(auth::user()->kategori=="Pengepul")$sampah=Sampah::where('id_pengepul',auth::user()->pengepul->id)->get();
         $columns=new Sampah;
         $columns = $columns->getFillable();
 
@@ -30,7 +30,7 @@ class SampahController extends Controller
 
         $c=collect($columns);
         $key = $c->search(function($item) {
-            return $item == 'id_member';
+            return $item == 'id_pengepul';
         });$c->pull($key);
         $columns=$c->toArray();
 
@@ -45,10 +45,11 @@ class SampahController extends Controller
 
         $this->validate($request, [
             'nama'=>"required|string",
-            'point'=>"required|int",
-            'satuan'=>"required|string",
+            'harga'=>"required|int",
+            'per_angka'=>"required|int",
+            'per_satuan'=>"required|string",
             'deskripsi'=>"required|string",
-            // 'id_member'=>"required",
+            // 'id_pengepul'=>"required",
         ]);
         // echo "<p class='ini'>valid</p>";
         // dd($request->all());
@@ -57,8 +58,8 @@ class SampahController extends Controller
         $sampah=new Sampah;
         $columns = $sampah->getFillable();
         foreach($columns as $col){
-            if($col=="id_member")
-            $sampah->id_member=auth::user()->member->id;
+            if($col=="id_pengepul")
+            $sampah->id_pengepul=auth::user()->pengepul->id;
             else
             $sampah->$col=$request->$col;
         }
@@ -89,8 +90,9 @@ class SampahController extends Controller
 
         $this->validate($request, [
             'nama'=>"required|string",
-            'point'=>"required|int",
-            'satuan'=>"required|string",
+            'harga'=>"required|int",
+            'per_angka'=>"required|int",
+            'per_satuan'=>"required|string",
             'deskripsi'=>"required|string",
         ]);
         // echo "<p class='ini'>valid</p>";

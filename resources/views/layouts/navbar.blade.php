@@ -34,7 +34,7 @@
             <li class="nav-item ">
                 <div class="nav-link small">
                     {{-- <div class="timer count-title count-number d-inline" data-to="{{ Auth::user()->nasabah->saldo }}" data-speed="1500"></div> --}}
-                    {{ Auth::user()->nasabah->saldo }} pts
+                    {{ Auth::user()->nasabah->point->sum() }} pts
                     <i class="fas fa-donate text-success"></i>
                     {{-- <i class="fas fa-wallet"></i> --}}
                     {{-- <i class="fas fa-coins"></i> --}}
@@ -68,12 +68,11 @@
                     </form>
                 </div>
             </li>
-            <li class="nav-item dropdown d-lg-none">
+            {{--  <li class="nav-item dropdown d-lg-none">
                 <span  class="nav-link small" >
-                {{-- href="{{ route('landing_page') }}" --}}
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </span>
-            </li>
+            </li>  --}}
         @endguest
     </ul>
 

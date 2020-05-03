@@ -16,7 +16,7 @@
 
                         <form action="{{ route('sampah.store') }}" method="post">
                             <input type="hidden" name="_method" value="put">
-                            {{-- <input type="hidden" name="id_member" value="{{auth::user()->member->id}}"> --}}
+                            {{-- <input type="hidden" name="id_pengepul" value="{{auth::user()->pengepul->id}}"> --}}
                             {{ csrf_field() }}
 
                             @foreach ($columns as $col)
@@ -30,11 +30,15 @@
                                             id="{{$col}}" placeholder="{{$col}} sampah"
                                             cols="30" rows="10"
                                             >{{ old($col) }}</textarea>
-                                        @elseif($col=='point')
+                                        @elseif($col=='harga')
                                             <input name="{{$col}}" type="number"
                                             class="form-control form-control-sm {{ $errors->has($col) ? ' is-invalid' : '' }}" value="{{ old($col) }}"
-                                            id="{{$col}}" placeholder="angka">
-                                        @elseif($col=='satuan')
+                                            id="{{$col}}" placeholder="masukan angka">
+                                        @elseif($col=='per_angka')
+                                            <input name="{{$col}}" type="number"
+                                            class="form-control form-control-sm {{ $errors->has($col) ? ' is-invalid' : '' }}" value="{{ old($col) }}"
+                                            id="{{$col}}" placeholder="masukan angka">
+                                        @elseif($col=='per_satuan')
                                             <input name="{{$col}}" type="text"
                                             class="form-control form-control-sm {{ $errors->has($col) ? ' is-invalid' : '' }}" value="{{ old($col) }}"
                                             id="{{$col}}" placeholder="Kg, gram, Bungkus..">

@@ -17,11 +17,12 @@ class CreateNasabahsTable extends Migration
             $table->increments('id');//PK
 
             $table->integer('id_user')->unsigned();//FK
-            $table->string('ktp')->unique();
-            $table->string('provinsi');
+            $table->string('ktp')->unique()->nullable();
             $table->string('alamat',191);
-            $table->string('dusun');
-            $table->integer('saldo');
+            $table->string('provinsi')->nullable();
+            $table->string('kota')->nullable();
+            $table->string('kecamatan')->nullable();
+            $table->string('kelurahan')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

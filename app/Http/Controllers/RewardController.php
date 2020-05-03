@@ -27,7 +27,7 @@ class RewardController extends Controller
     public function index()
     {
         if(auth::user()->kategori=="Admin")$reward=Reward::all();
-        elseif(auth::user()->kategori=="Member")$reward=Reward::where('id_member',auth::user()->member->id)->get();
+        elseif(auth::user()->kategori=="Challengger")$reward=Reward::where('id_challengger',auth::user()->member->id)->get();
         $columns=new Reward;
         $columns = $columns->getFillable();
 
@@ -45,7 +45,7 @@ class RewardController extends Controller
 
         $c=collect($columns);
         $key = $c->search(function($item) {
-            return $item == 'id_member';
+            return $item == 'id_challengger';
         });$c->pull($key);
         $columns=$c->toArray();
 

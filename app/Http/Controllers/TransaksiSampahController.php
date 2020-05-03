@@ -22,16 +22,16 @@ class TransaksiSampahController extends Controller
             $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])->where('validasi',0)->get();
             $transaksiValid=TransaksiSampah::with(['nasabah.user','sampah'])->where('validasi',1)->get();
         }
-        elseif(auth::user()->kategori=="Member")
+        elseif(auth::user()->kategori=="Pengepul")
         {
             $transaksiValid=TransaksiSampah::with(['nasabah.user','sampah'])
             ->whereHas('sampah', function($sampah){
-                $sampah->where('id_member',auth::user()->member->id);
+                $sampah->where('id_pengepul',auth::user()->pengepul->id);
             })->where('validasi',1)->get();
 
             $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])
             ->whereHas('sampah', function($sampah){
-                $sampah->where('id_member',auth::user()->member->id);
+                $sampah->where('id_pengepul',auth::user()->pengepul->id);
             })->where('validasi',0)->get();
 
         }
@@ -93,7 +93,7 @@ class TransaksiSampahController extends Controller
 
         $this->validate($request, [
             'id_sampah'=>"required|string",
-            'total_satuan'=>"required|int",
+            'total_jumlah'=>"required|int",
         ]);
         // echo "<p class='ini'>valid</p>";
         // dd($request->all());
@@ -107,8 +107,8 @@ class TransaksiSampahController extends Controller
         //isi transaksi
         $transaksi->id_nasabah=$nasabah->id;
         $transaksi->id_sampah=$sampah->id;
-        $transaksi->total_satuan=$request->total_satuan;
-        $transaksi->total_point= $transaksi->total_satuan * $sampah->point;
+        $transaksi->total_jumlah=$request->total_jumlah;
+        $transaksi->total_pembayaran= $transaksi->total_jumlah * $sampah->harga;
         $transaksi->save();
 
 
@@ -122,13 +122,35 @@ class TransaksiSampahController extends Controller
         $transaksi=TransaksiSampah::find($request->id_transaksi);
         $transaksi->validasi=1;
 
-        //untuk pembelian point
+        //untuk pembelian harga
         // if(!$this->ceksaldocukup($nasabah, $transaksi))
         // return redirect()->route('transaksiSampah')
         //     ->withErrors(['error'=>'saldo tidak cukup']);
 
         //tambah saldo
-        $transaksi->nasabah->saldo = $transaksi->nasabah->saldo + $transaksi->total_point;
+        $transaksi->nasabah->saldo = $transaksi->nasabah->saldo + $transaksi->total_pembayaran;
+        $transaksi->nasabah->save();
+
+        $transaksi->save();
+
+
+        return redirect()->route('transaksiSampah');
+
+    }
+
+
+    public function validasiBatal(Request $request){
+
+        $transaksi=TransaksiSampah::find($request->id_transaksi);
+        $transaksi->validasi=0;
+
+        //untuk pembelian harga
+        // if(!$this->ceksaldocukup($nasabah, $transaksi))
+        // return redirect()->route('transaksiSampah')
+        //     ->withErrors(['error'=>'saldo tidak cukup']);
+
+        //tambah saldo
+        $transaksi->nasabah->saldo = $transaksi->nasabah->saldo - $transaksi->total_pembayaran;
         $transaksi->nasabah->save();
 
         $transaksi->save();
@@ -146,8 +168,8 @@ class TransaksiSampahController extends Controller
 
     public function create()
     {
-        $nasabah=Nasabah::select('id','id_user')->with('user')->get();
-        $sampah=Sampah::all();
+        $nasabah=Nasabah::select('id','id_user')->where('provinsi',AUTH::user()->pengepul->provinsi)->with('user')->get();
+        $sampah=AUTH::user()->pengepul->sampah;
         // dd($sampah);
 
         $transaksi=new TransaksiSampah;
@@ -163,7 +185,7 @@ class TransaksiSampahController extends Controller
         $this->validate($request, [
             'id_nasabah'=>"required|string",
             'id_sampah'=>"required|string",
-            'total_satuan'=>"required|int",
+            'total_jumlah'=>"required|int",
         ]);
         // echo "<p class='ini'>valid</p>";
         // dd($request->all());
@@ -179,18 +201,19 @@ class TransaksiSampahController extends Controller
         foreach($columns as $col){
             $transaksi->$col=$request->$col;
         }
-        $transaksi->total_point= $transaksi->total_satuan * $sampah->point;
+        $transaksi->total_pembayaran= $transaksi->total_jumlah * $sampah->harga;
 
-        //untuk pembelian point
+        //untuk pembelian harga
         // if(!$this->ceksaldocukup($nasabah, $transaksi))
         // return redirect()->route('transaksiSampah')
         //     ->withErrors(['error'=>'saldo tidak cukup']);
 
         //tambah saldo
-        $nasabah->saldo = $nasabah->saldo + $transaksi->total_point;
+        $nasabah->saldo = $nasabah->saldo + $transaksi->total_pembayaran;
         $nasabah->save();
 
         //simpan
+        $transaksi->validasi=1;
         $transaksi->save();
 
         return redirect()->route('transaksiSampah');
@@ -219,7 +242,7 @@ class TransaksiSampahController extends Controller
         $transaksiSampah=TransaksiSampah::with(['nasabah'])->find($id);
 
         //hapus saldo
-        $transaksiSampah->nasabah->saldo = $transaksiSampah->nasabah->saldo - $transaksiSampah->total_point;
+        $transaksiSampah->nasabah->saldo = $transaksiSampah->nasabah->saldo - $transaksiSampah->total_pembayaran;
         $transaksiSampah->nasabah->save();
 
         $transaksiSampah->delete();

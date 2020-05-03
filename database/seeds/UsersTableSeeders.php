@@ -51,23 +51,22 @@ class UsersTableSeeders extends Seeder
 
 
         $user=new App\Models\User;
-        $member=new App\Models\Member;
+        $pengepul=new App\Models\Pengepul;
 
-        $user->kategori="Member";
+        $user->kategori="Pengepul";
         $user->name="Bagus";
         $user->username="bagus";
         $user->email="bagus@gmail.com";
         $user->telepon="087870636321";
         $user->password="1234";
-        $user->assignRole('Member');
+        $user->assignRole('Pengepul');
         $user->save();
 
-        $member->id_user=$user->id;
-        $member->ktp="123";
-        $member->provinsi;
-        $member->alamat;
-        $member->dusun;
-        $member->save();
+        $pengepul->id_user=$user->id;
+        $pengepul->ktp="123";
+        $pengepul->provinsi;
+        $pengepul->alamat;
+        $pengepul->save();
 
 
 
@@ -75,23 +74,22 @@ class UsersTableSeeders extends Seeder
 
 
         $user=new App\Models\User;
-        $member=new App\Models\Member;
+        $pengepul=new App\Models\Pengepul;
 
-        $user->kategori="Member";
+        $user->kategori="Pengepul";
         $user->name="Adit";
         $user->username="adit";
         $user->email="adit@gmail.com";
         $user->telepon="082246461047";
         $user->password="1234";
-        $user->assignRole('Member');
+        $user->assignRole('Pengepul');
         $user->save();
 
-        $member->id_user=$user->id;
-        $member->ktp="1234";
-        $member->provinsi;
-        $member->alamat;
-        $member->dusun;
-        $member->save();
+        $pengepul->id_user=$user->id;
+        $pengepul->ktp="1234";
+        $pengepul->provinsi;
+        $pengepul->alamat;
+        $pengepul->save();
 
 
 
@@ -100,23 +98,22 @@ class UsersTableSeeders extends Seeder
 
 
         $user=new App\Models\User;
-        $member=new App\Models\Member;
+        $pengepul=new App\Models\Pengepul;
 
-        $user->kategori="Member";
+        $user->kategori="Pengepul";
         $user->name="Fauziyyah";
         $user->username="fau";
         $user->email="fau@gmail.com";
         $user->telepon="085103226373";
         $user->password="1234";
-        $user->assignRole('Member');
+        $user->assignRole('Pengepul');
         $user->save();
 
-        $member->id_user=$user->id;
-        $member->ktp="12345";
-        $member->provinsi;
-        $member->alamat;
-        $member->dusun;
-        $member->save();
+        $pengepul->id_user=$user->id;
+        $pengepul->ktp="12345";
+        $pengepul->provinsi;
+        $pengepul->alamat;
+        $pengepul->save();
 
 
 
@@ -125,23 +122,22 @@ class UsersTableSeeders extends Seeder
 
 
         $user=new App\Models\User;
-        $member=new App\Models\Member;
+        $pengepul=new App\Models\Pengepul;
 
-        $user->kategori="Member";
+        $user->kategori="Pengepul";
         $user->name="Melati";
         $user->username="melati";
         $user->email="melati@gmail.com";
         $user->telepon="082118282318";
         $user->password="1234";
-        $user->assignRole('Member');
+        $user->assignRole('Pengepul');
         $user->save();
 
-        $member->id_user=$user->id;
-        $member->ktp="123456";
-        $member->provinsi;
-        $member->alamat;
-        $member->dusun;
-        $member->save();
+        $pengepul->id_user=$user->id;
+        $pengepul->ktp="123456";
+        $pengepul->provinsi;
+        $pengepul->alamat;
+        $pengepul->save();
 
 
 
@@ -152,22 +148,21 @@ class UsersTableSeeders extends Seeder
 
 
         $user=new App\Models\User;
-        $member=new App\Models\Member;
+        $pengepul=new App\Models\Pengepul;
 
-        $user->kategori="Member";
+        $user->kategori="Pengepul";
         $user->name="Kiki";
         $user->username="kiki";
         $user->email="mohzulkiflikatili@gmail.com";
         $user->telepon="082291501085";
         $user->password="pulkam";
-        $user->assignRole('Member');
+        $user->assignRole('Pengepul');
         $user->save();
 
-        $member->id_user=$user->id;
-        $member->ktp="1234567";
-        $member->provinsi="Gorontalo";
-        $member->alamat="Jl. Sawah Besar, Desa Talango, Kec. Kabila, Kab. Bone Bolango";
-        $member->dusun="SukaBukber";
-        $member->save();
+        $pengepul->id_user=$user->id;
+        $pengepul->ktp="1234567";
+        $pengepul->provinsi="Gorontalo";
+        $pengepul->alamat="Jl. Sawah Besar, Desa Talango, Kec. Kabila, Kab. Bone Bolango";
+        $pengepul->save();
     }
 }

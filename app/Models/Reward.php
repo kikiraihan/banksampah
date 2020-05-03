@@ -9,16 +9,17 @@ class Reward extends Model
 
     protected $fillable = [
         'nama',
-        'point',
+        'point_harga',
         'stock',
         'foto',
-        'id_member',
+        // 'validasi',
+        'id_challengge',
     ];
 
 
     //RELASI
-    public function pemilik(){
-        return $this->belongsTo('App\Models\Member','id_member');//boleh null
+    public function challengge(){
+        return $this->belongsTo('App\Models\Challengge','id_challengge');//boleh null
     }
 
     public function tranksaksiReward()

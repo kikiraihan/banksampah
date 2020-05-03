@@ -13,8 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesTableSeeders::class);
         $this->call(UsersTableSeeders::class);
-        // $this->call(MemberTableSeeders::class);
-        $this->call(RewardTableSeeder::class);
+        // $this->call(RewardTableSeeder::class);
         $this->call(SampahTableSeeder::class);
+
+        // $this->call(ImportAllBackupSeeders::class);
+        //harus paling terakhir soalnya besar skali dpe data, kalau tidak mysql mpaksa kosong
+        $this->call(WilayahIndonesiaImportTableSeeders::class);
     }
 }

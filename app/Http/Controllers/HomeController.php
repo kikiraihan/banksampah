@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Nasabah;
-
 use App\Models\TransaksiSampah;
-
 use  Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
@@ -36,7 +36,11 @@ class HomeController extends Controller
             $nasabahProvinsi[$provinsi] = count($nasabah);
         }
 
-        return view('home',compact('transProv','nasabahProvinsi'));
+
+        $user=Auth::user();
+
+
+        return view('home',compact('transProv','nasabahProvinsi','user'));
     }
 
 

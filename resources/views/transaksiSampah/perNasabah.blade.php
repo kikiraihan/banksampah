@@ -56,6 +56,7 @@
                                     <th class="text-capitalize">{{ $col }}</th>
                                     @endif
                                     @endforeach
+                                    <th>Action</th>
 
 
                                 </tr>
@@ -74,7 +75,7 @@
                                         <td class="text-success">
                                             {{ $transaksiSampah->$col }} pts
                                         </td>
-                                        @elseif ($col=="total_satuan")
+                                        @elseif ($col=="total_jumlah")
                                         <td>
                                             {{ $transaksiSampah->$col }} {{ $transaksiSampah->sampah->satuan }}
                                         </td>
@@ -86,6 +87,10 @@
                                         <td>{{ $transaksiSampah->$col }}</td>
                                         @endif
                                     @endforeach
+                                    <td>
+                                        aksi
+                                    </td>
+
 
 
 

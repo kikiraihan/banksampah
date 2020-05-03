@@ -23,15 +23,15 @@ class TransaksiRewardController extends Controller
             $transaksiReward=TransaksiReward::with(['nasabah.user','reward'])->where('validasi',0)->get();
             $transaksiValid=TransaksiReward::with(['nasabah.user','reward'])->where('validasi',1)->get();
         }
-        elseif(auth::user()->kategori=="Member")
+        elseif(auth::user()->kategori=="Challengger")
         {
             $transaksiReward=TransaksiReward::with(['nasabah.user','reward'])
             ->whereHas('reward', function($reward){
-                $reward->where('id_member',auth::user()->member->id);
+                $reward->where('id_challengger',auth::user()->challengger->id);
             })->where('validasi',0)->get();
             $transaksiValid=TransaksiReward::with(['nasabah.user','reward'])
             ->whereHas('reward', function($reward){
-                $reward->where('id_member',auth::user()->member->id);
+                $reward->where('id_challengger',auth::user()->challengger->id);
             })->where('validasi',1)->get();
 
         }

@@ -6,7 +6,7 @@ $factory->define(App\Models\Sampah::class, function (Faker $faker) {
     return [
         // 'nama' => $faker->colorName,
         // 'deskripsi' => $faker->paragraph,
-        'id_member' => 5,
+        'id_pengepul' => 5,
         'nama' => $faker->randomElement([
             'Pembungkus Plastik',
             'Botol kaca',
@@ -15,7 +15,8 @@ $factory->define(App\Models\Sampah::class, function (Faker $faker) {
             'Pembungkus makanan ringan, plastik kemasan, dll',
             'Botol sosro, fanta, cocacola, cocol aku bang, dan botol minuman lain.',
         ]),
-        'satuan' => $faker->randomElement(['kg','gram','pcs']),
-        'point' => $faker->randomElement([200,100,300]),
+        'per_angka' => $faker->randomElement(['1000','100','1']),
+        'per_satuan' => $faker->randomElement(['kg','gram','pcs']),
+        'harga' => $faker->randomElement([2000,1000,3000]),
     ];
 });

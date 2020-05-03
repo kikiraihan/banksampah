@@ -26,6 +26,6 @@ class SampahTableSeeder extends Seeder
         //     'Botol sosro, fanta, cocacola, cocol aku bang, dan botol minuman lain.',
         // ]),
         // 'satuan' => $faker->randomElement(['kg','gram','pcs']),
-        // 'point' => $faker->randomElement([200,100,300]),
+        // 'harga' => $faker->randomElement([200,100,300]),
     }
 }

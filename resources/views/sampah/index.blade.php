@@ -13,7 +13,7 @@
                 <div class="card-body container px-2">
 
 
-                    @role('Member')
+                    @role('Pengepul')
                     <a href="{{ route('sampah.create') }}" class="btn btn-outline-primary btn-sm border border-white-50">Tambah +</a>
                     <hr>
                     @endrole
@@ -42,7 +42,7 @@
                                         <td >/{{ $sampah->$col }}</td>
                                         @elseif ($col=="point")
                                         <td class="text-success">{{ $sampah->$col }} pts</td>
-                                        @elseif ($col=="id_member")
+                                        @elseif ($col=="id_pengepul")
                                         <td class="text-info">{{ $sampah->pemilik->user->name }} : {{ $sampah->pemilik->user->telepon }}</td>
                                         @else
                                         <td >{{ $sampah->$col }}</td>

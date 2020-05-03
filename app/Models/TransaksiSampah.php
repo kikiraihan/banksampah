@@ -12,8 +12,8 @@ class TransaksiSampah extends Model
     protected $fillable = [
         'id_nasabah',
         'id_sampah',
-        'total_satuan',
-        'total_point',
+        'total_jumlah',
+        'total_pembayaran',
         'validasi',
     ];
 
@@ -22,13 +22,14 @@ class TransaksiSampah extends Model
         return $this->belongsTo('App\Models\Nasabah','id_nasabah');//boleh null
     }
 
-    // public function user(){
-    //     return $this->belongsTo('App\Models\Nasabah','id_nasabah');//boleh null
-    // }
-
     public function sampah()
     {
         return $this->belongsTo('App\Models\Sampah', 'id_sampah');//nanti ganti jo jadi many to many
+    }
+
+
+    public function point(){
+        return $this->hasOne('App\Models\Point','id_transaksi_sampah');//boleh null
     }
 
 

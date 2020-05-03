@@ -14,8 +14,8 @@
         @if ($sampah->isEmpty())
         <div class="alert alert-info small text-center" role="alert">
             <strong>Kosong..</strong> <br>
-            Member di area anda belum membuat daftar sampah yang diterima.
-            {{--  Silahkan hubungi member terdekat.  --}}
+            Pengepul di area anda belum membuat daftar sampah yang diterima.
+             {{-- Silahkan hubungi pengepul terdekat.  --}}
         </div>
         @else
             @if ($errors->any())
@@ -41,10 +41,10 @@
                         <li class="list-group-item">
                         <h4 class="card-title mb-0">{{$s->nama}}</h4>
                         {{-- <small class="card-subtitle mb-2 text-muted"><small><b>{{$s->pemilik->user->name}} - </b>{{$s->pemilik->alamat}}</small></small> --}}
-                        <small class="card-subtitle mb-2 text-muted">{{$s->point}} point/{{$s->satuan}}</small>
+                        <small class="card-subtitle mb-2 text-muted">{{number_format($s->harga)}} Rupiah /{{$s->per_angka}} {{$s->per_satuan}}</small>
                         </li>
                         {{-- <li class="list-group-item">{{$s->pemilik->user->name}} - {{$s->pemilik->provinsi}} </li> --}}
-                        {{-- <li class="list-group-item ">{{$s->point}} point/{{$s->satuan}}</li> --}}
+                        {{-- <li class="list-group-item ">{{$s->harga}} point/{{$s->satuan}}</li> --}}
                         <li class="list-group-item"><b> Deskripsi :</b><p class="card-text small">
                         {{$s->deskripsi}}
                         </p></li>
@@ -61,13 +61,13 @@
 
 
                             <div class="form-group">
-                                <label class="text-capitalize" for="total_satuan">Total Satuan</label>
-                                <input name="total_satuan" type="number" class="form-control form-control-sm
-                                    {{ $errors->has('total_satuan') ? ' is-invalid' : '' }}" value="{{ old('total_satuan') }}"
-                                    id="total_satuan" placeholder="kg, gram, ..">
+                                <label class="text-capitalize" for="total_jumlah">Total Satuan</label>
+                                <input name="total_jumlah" type="number" class="form-control form-control-sm
+                                    {{ $errors->has('total_jumlah') ? ' is-invalid' : '' }}" value="{{ old('total_jumlah') }}"
+                                    id="total_jumlah" placeholder="kg, gram, ..">
 
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>*{{ $errors->first('total_satuan') }}</strong>
+                                    <strong>*{{ $errors->first('total_jumlah') }}</strong>
                                 </span>
                             </div>
 

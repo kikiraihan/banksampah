@@ -10,9 +10,10 @@ class Nasabah extends Model
         'id_user',
         'ktp',
         'alamat',
-        'saldo',
-        'dusun',
         'provinsi',
+        'kota',
+        'kecamatan',
+        'kelurahan',
     ];
 
 
@@ -29,5 +30,15 @@ class Nasabah extends Model
     public function transaksiRewards()
     {
         return $this->hasMany('App\Models\TransaksiReward', 'id_nasabah');
+    }
+
+    public function point()
+    {
+        return $this->hasMany('App\Models\Point', 'id_nasabah');
+    }
+
+    public function ewallet()
+    {
+        return $this->morphMany('App\Models\Ewallet', 'ewalletable');
     }
 }

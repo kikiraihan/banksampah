@@ -17,6 +17,7 @@ class RolesTableSeeders extends Seeder
         // create roles and assign created permissions
         Role::create(['name' => 'Admin']);
         Role::create(['name' => 'Nasabah']);
-        Role::create(['name' => 'Member']);
+        Role::create(['name' => 'Pengepul']);
+        Role::create(['name' => 'Challengger']);
     }
 }

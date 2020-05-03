@@ -31,15 +31,21 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Nasabah','id_user');//boleh null
     }
 
-    public function member(){
-        return $this->hasOne('App\Models\Member','id_user');//boleh null
+    public function pengepul(){
+        return $this->hasOne('App\Models\Pengepul','id_user');//boleh null
+    }
+
+    public function challengger(){
+        return $this->hasOne('App\Models\Challengger','id_user');//boleh null
     }
 
     public function katget(){
         if($this->kategori=="Nasabah")
         return $this->hasOne('App\Models\Nasabah','id_user');//boleh null
-        elseif($this->kategori=="Member")
-        return $this->hasOne('App\Models\Member','id_user');//boleh null
+        elseif($this->kategori=="Pengepul")
+        return $this->hasOne('App\Models\Pengepul','id_user');//boleh null
+        elseif($this->kategori=="Challengger")
+        return $this->hasOne('App\Models\Challengger','id_user');//boleh null
         else return null;
     }
 
