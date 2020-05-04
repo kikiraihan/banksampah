@@ -68,14 +68,16 @@
 
         @endrole
 
-        @role('Admin|Pengepul')
+        @role('Admin')
         <li>
             <a href="{{ route('user') }}" >
                 <i class="far fa-id-badge"></i>
                 <small>User</small>
             </a>
         </li>
+        @endrole
 
+        @role('Admin|Pengepul')
         <li >
             <a href="{{ route('sampah') }}" >
                 {{-- <i class="fas fa-dumpster"></i> --}}

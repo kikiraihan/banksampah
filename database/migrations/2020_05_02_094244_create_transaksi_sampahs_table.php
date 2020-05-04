@@ -20,7 +20,8 @@ class CreateTransaksiSampahsTable extends Migration
             $table->integer('id_sampah')->unsigned();//FK
             $table->integer('total_pembayaran');
             $table->integer('total_jumlah');//total_jumlah
-            $table->boolean('validasi')->default(0);
+            $table->boolean('validasi_nasabah')->default(0);
+            $table->boolean('validasi_pengepul')->default(0);
             // $table->timestamp('tgl')->nullable();
 
             $table->timestamps();

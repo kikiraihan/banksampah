@@ -45,9 +45,9 @@ Route::POST('/wilayah/get/{jenis}',  'WilayahIndonesiaController@getWilayah')->n
 // ------------------ NASABAH ----------------------
 // -----------------------------------------------
 
-$this->middleware(['role:Mahasiswa','auth'], ['only' => [
-            'mendaftar'
-        ]]);
+// $this->middleware(['role:Mahasiswa','auth'], ['only' => [
+//             'mendaftar'
+//         ]]);
 
 //TransaksiSampah
 Route::group(['prefix' => 'transaksi/sampah/saya'], function()
@@ -82,18 +82,18 @@ Route::group(['prefix' => 'transaksi/reward/saya'], function() {
 
 //User
 Route::group(['prefix' => 'user'], function() {
-    Route::get('/', 'UserController@index')->name('user')->middleware(['role:Admin|Pengepul','auth']);
-    Route::get('/create/{id}', 'UserController@create')->name('user.create')->middleware(['role:Admin|Pengepul','auth']);
-    Route::put('/', 'UserController@store')->name('user.store')->middleware(['role:Admin|Pengepul','auth']);
+    Route::get('/', 'UserController@index')->name('user')->middleware(['role:Admin','auth']);
+    Route::get('/create/{id}', 'UserController@create')->name('user.create')->middleware(['role:Admin','auth']);
+    Route::put('/', 'UserController@store')->name('user.store')->middleware(['role:Admin','auth']);
 
     // Route::get('/nasabah/create', 'UserController@createNasabah')->name('user.createNasabah');
     // Route::put('/nasabah', 'UserController@storeNasabah')->name('user.storeNasabah');
 
 
-    Route::delete('/delete/{id}', 'UserController@destroy')->name('user.destroy')->middleware(['role:Admin|Pengepul','auth']);
+    Route::delete('/delete/{id}', 'UserController@destroy')->name('user.destroy')->middleware(['role:Admin','auth']);
 
-    Route::get('/{id}/edit', 'UserController@edit')->name('user.edit')->middleware(['role:Admin|Pengepul','auth']);
-    Route::put('/{id}', 'UserController@update')->name('user.update')->middleware(['role:Admin|Pengepul','auth']);
+    Route::get('/{id}/edit', 'UserController@edit')->name('user.edit')->middleware(['role:Admin','auth']);
+    Route::put('/{id}', 'UserController@update')->name('user.update')->middleware(['role:Admin','auth']);
 });
 
 
@@ -133,8 +133,8 @@ Route::group(['prefix' => 'transaksi/sampah'], function() {
     // Route::get('/{id}', 'TransaksiSampahController@show')->name('transaksiSampah.show');
     Route::put('/', 'TransaksiSampahController@store')->name('transaksiSampah.store')->middleware(['role:Pengepul','auth']);
     Route::delete('/delete/{id}', 'TransaksiSampahController@destroy')->name('transaksiSampah.destroy')->middleware(['role:Admin|Pengepul|Nasabah','auth']);
-    Route::put('/validasi', 'TransaksiSampahController@validasi')->name('transaksiSampah.validasi')->middleware(['role:Admin|Pengepul','auth']);
-    Route::put('/validasi/batal', 'TransaksiSampahController@validasiBatal')->name('transaksiSampah.validasi.batal')->middleware(['role:Admin|Pengepul','auth']);
+    Route::put('/validasi', 'TransaksiSampahController@validasi')->name('transaksiSampah.validasi')->middleware(['role:Nasabah|Pengepul','auth']);
+    // Route::put('/validasi/batal', 'TransaksiSampahController@validasiBatal')->name('transaksiSampah.validasi.batal')->middleware(['role:Nasabah|Pengepul','auth']);
 
     Route::get('/{id}/edit', 'TransaksiSampahController@edit')->name('transaksiSampah.edit')->middleware(['role:Admin|Pengepul','auth']);
     Route::put('/{id}', 'TransaksiSampahController@update')->name('transaksiSampah.update')->middleware(['role:Admin|Pengepul','auth']);

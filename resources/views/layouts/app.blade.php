@@ -98,6 +98,8 @@
 
 
     <script src="{{ asset('assets/script.js') }}"></script>
+    @include('sweetalert::alert')
+
 
 </body>
 

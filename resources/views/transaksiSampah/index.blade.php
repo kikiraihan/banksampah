@@ -34,23 +34,25 @@
 
                         <div class="table-responsive">
                             <table class="table table-striped table-borderless border border-white-50 table-sm small">
-                                <caption class="text-left ">Daftar history transaksi Sampah</caption>
+                                <caption class="text-left ">Transaksi sampah bulan {{date('m')}}</caption>
                                 <thead class="thead-light text-center">
                                     <tr>
                                         <th>No</th>
                                         @foreach ($columns as $col)
-                                        @if ($col=='total_point')
-                                        <th class="text-capitalize">Total point yang ditambahkan</th>
+                                        @if ($col=="created_at")
+                                        <th class="text-capitalize">Dibuat tanggal</th>
                                         @else
                                         <th class="text-capitalize">{{ $col }}</th>
                                         @endif
                                         @endforeach
 
+                                        <th >Validasi</th>
                                         <th class="text-right pr-2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
                                     @php $no=0 @endphp
+                                    @if($transaksiSampah->isNotEmpty())
                                     @foreach ($transaksiSampah as $transaksiSampah)
                                     <tr>
                                         <th>{{ ++$no }}</th>
@@ -65,12 +67,20 @@
                                             </td>
                                             @elseif ($col=="total_jumlah")
                                             <td>
-                                                {{ $transaksiSampah->$col }} {{ $transaksiSampah->sampah->satuan }}
+                                                {{ $transaksiSampah->$col }} x {{ $transaksiSampah->sampah->per_angka }} {{ $transaksiSampah->sampah->per_satuan }}
+                                            </td>
+                                            @elseif ($col=="total_pembayaran")
+                                            <td>
+                                                Rp. {{ number_format($transaksiSampah->$col) }}
                                             </td>
                                             @else
                                             <td>{{ $transaksiSampah->$col }}</td>
                                             @endif
                                         @endforeach
+                                            <td>
+                                                {!! $transaksiSampah->validasi_pengepul==1?"<span class='badge badge-success'>Pengepul</span>":""!!}
+                                                {!! $transaksiSampah->validasi_nasabah==1?"<span class='badge badge-info'>Nasabah</span>":""!!}
+                                            </td>
 
                                         <td class="text-right pr-2 dropdown dropleft">
 
@@ -104,6 +114,7 @@
 
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -111,43 +122,53 @@
 
                         <div class="table-responsive">
                             <table class="table table-striped table-borderless border border-white-50 table-sm small">
-                                <caption class="text-left text-success">Divalidasi / sudah dibayarkan</caption>
+                                <caption class="text-left text-success">History Transaksi</caption>
                                 <thead class="thead-light text-center">
                                     <tr>
                                         <th>No</th>
                                         @foreach ($columns as $col)
-                                        @if ($col=='total_point')
-                                        <th class="text-capitalize">Total point yang ditambahkan</th>
+                                        @if ($col=="created_at")
+                                        <th class="text-capitalize">Dibuat tanggal</th>
                                         @else
                                         <th class="text-capitalize">{{ $col }}</th>
                                         @endif
                                         @endforeach
 
+                                        <th >Validasi</th>
                                         <th class="text-right pr-2">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
                                     @php $no=0 @endphp
-                                    @foreach ($transaksiValid as $transaksiValid)
+                                    @foreach ($transaksiOld as $transaksiOld)
                                     <tr>
                                         <th>{{ ++$no }}</th>
                                         @foreach ($columns as $col)
                                             @if ($col=="id_nasabah")
                                             <td>
-                                                <i class="text-success">#{{ $transaksiValid->$col }}</i> {{ $transaksiValid->nasabah->user->name }}
+                                                <i class="text-success">#{{ $transaksiOld->$col }}</i> {{ $transaksiOld->nasabah->user->name }}
                                             </td>
                                             @elseif ($col=="id_sampah")
                                             <td>
-                                                <i class="text-success">#{{ $transaksiValid->$col }}</i> {{ $transaksiValid->sampah->nama }}
+                                                <i class="text-success">#{{ $transaksiOld->$col }}</i> {{ $transaksiOld->sampah->nama }}
                                             </td>
                                             @elseif ($col=="total_jumlah")
                                             <td>
-                                                {{ $transaksiValid->$col }} {{ $transaksiValid->sampah->satuan }}
+                                                {{ $transaksiOld->$col }} x {{ $transaksiOld->sampah->per_angka }} {{ $transaksiOld->sampah->per_satuan }}
+                                            </td>
+                                            @elseif ($col=="total_pembayaran")
+                                            <td>
+                                                Rp. {{ number_format($transaksiOld->$col) }}
                                             </td>
                                             @else
-                                            <td>{{ $transaksiValid->$col }}</td>
+                                            <td>{{ $transaksiOld->$col }}</td>
                                             @endif
                                         @endforeach
+
+                                        <td>
+                                            {!! $transaksiOld->validasi_pengepul==1?"<span class='badge badge-success'>Pengepul</span>":""!!}
+                                            {!! $transaksiOld->validasi_nasabah==1?"<span class='badge badge-info'>Nasabah</span>":""!!}
+                                        </td>
 
                                         <td class="text-right pr-2 dropdown dropleft">
 
@@ -156,24 +177,24 @@
                                                 </span>
                                                 <div class="dropdown-menu">
 
-                                                    <form style="display: inline;" method="post" action="{{ route('transaksiSampah.validasi.batal') }}">
+                                                    {{-- <form style="display: inline;" method="post" action="{{ route('transaksiSampah.validasi.batal') }}">
                                                             <input type="hidden" name="_method" value="PUT">
-                                                            <input type="hidden" name="id_transaksi" value="{{$transaksiValid->id}}">
+                                                            <input type="hidden" name="id_transaksi" value="{{$transaksiOld->id}}">
                                                             {{ csrf_field()}}
                                                         <button class="dropdown-item small text-danger" >
                                                             <i class="fas fa-window-close"></i>
                                                             Batalkan Validasi
                                                         </button>
-                                                    </form>
+                                                    </form> --}}
 
-                                                    {{-- <form style="display: inline;" method="post" action="{{ route('transaksiSampah.destroy', ['id'=>$transaksiValid->id]) }}">
+                                                    <form style="display: inline;" method="post" action="{{ route('transaksiSampah.destroy', ['id'=>$transaksiOld->id]) }}">
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             {{ csrf_field()}}
                                                         <button class="dropdown-item small text-danger" >
                                                             <i class="fas fa-window-close"></i>
                                                             Batalkan
                                                         </button>
-                                                    </form> --}}
+                                                    </form>
 
                                                 </div>
 

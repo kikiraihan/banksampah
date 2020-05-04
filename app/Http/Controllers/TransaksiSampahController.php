@@ -20,20 +20,25 @@ class TransaksiSampahController extends Controller
         if(auth::user()->kategori=="Admin")
         {
             $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])->where('validasi',0)->get();
-            $transaksiValid=TransaksiSampah::with(['nasabah.user','sampah'])->where('validasi',1)->get();
+            $transaksiOld=TransaksiSampah::with(['nasabah.user','sampah'])->where('validasi',1)->get();
         }
         elseif(auth::user()->kategori=="Pengepul")
         {
-            $transaksiValid=TransaksiSampah::with(['nasabah.user','sampah'])
+            $transaksiOld=TransaksiSampah::with(['nasabah.user','sampah'])
             ->whereHas('sampah', function($sampah){
                 $sampah->where('id_pengepul',auth::user()->pengepul->id);
-            })->where('validasi',1)->get();
+            })
+            // ->where('validasi_pengepul',1)->where('validasi_nasabah',1)
+            ->whereMonth('created_at','<',date('m'))// bulan lalu
+            ->latest()->get();
 
             $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])
             ->whereHas('sampah', function($sampah){
                 $sampah->where('id_pengepul',auth::user()->pengepul->id);
-            })->where('validasi',0)->get();
-
+            })
+            // ->where('validasi_pengepul',0)->orWhere('validasi_nasabah',0)
+            ->whereMonth('created_at','>=',date('m'))
+            ->latest()->get();
         }
 
         // if (!$transaksiSampah->isEmpty()) {
@@ -42,12 +47,15 @@ class TransaksiSampahController extends Controller
         // else $columns=null;
 
         $transaksi=new TransaksiSampah;
-        $columns = $transaksi->getFillable();
+        $columns = $transaksi->getFillable();unset($columns[4],$columns[5]);
 
-        // array_push($columns,'nasabah->user->name');
-        // dd($columns);
+        //mutasi getFillable
+        //hapus
+        $columns=$this->removeIndexByValue(['validasi_pengepul','validasi_nasabah'], $columns);
+        //tambah
+        array_push($columns,'created_at');
 
-        return view('transaksiSampah.index',compact(['transaksiSampah','transaksiValid','columns']));
+        return view('transaksiSampah.index',compact(['transaksiSampah','transaksiOld','columns']));
     }
 
 
@@ -56,19 +64,24 @@ class TransaksiSampahController extends Controller
     {
         $transaksiSampah=TransaksiSampah::with(['nasabah.user','sampah'])
         ->where('id_nasabah',Auth::user()->nasabah->id)
-        ->get();
+        ->whereMonth('created_at','>=',date('m'))// bulan lalu
+        ->latest()->get();
+
+        $transaksiOld=TransaksiSampah::with(['nasabah.user','sampah'])
+        ->where('id_nasabah',Auth::user()->nasabah->id)
+        ->whereMonth('created_at','<',date('m'))// bulan lalu
+        ->latest()->get();
 
         $transaksi=new TransaksiSampah;
         $columns = $transaksi->getFillable();
 
         //mutasi getFillable
         //hapus
-        $columns=$this->removeIndexByValue(['id_nasabah'], $columns);
-
+        $columns=$this->removeIndexByValue(['id_nasabah','validasi_pengepul','validasi_nasabah'], $columns);
         //tambah
         array_push($columns,'created_at');
 
-        return view('transaksiSampah.perNasabah',compact(['transaksiSampah','columns']));
+        return view('transaksiSampah.perNasabah',compact(['transaksiSampah','transaksiOld','columns']));
     }
 
 
@@ -109,6 +122,8 @@ class TransaksiSampahController extends Controller
         $transaksi->id_sampah=$sampah->id;
         $transaksi->total_jumlah=$request->total_jumlah;
         $transaksi->total_pembayaran= $transaksi->total_jumlah * $sampah->harga;
+        $transaksi->validasi_nasabah=1;
+        $transaksi->validasi_pengepul=0;
         $transaksi->save();
 
 
@@ -117,10 +132,14 @@ class TransaksiSampahController extends Controller
     }
 
 
-    public function validasi(Request $request){
-
+    public function validasi(Request $request)
+    {
         $transaksi=TransaksiSampah::find($request->id_transaksi);
-        $transaksi->validasi=1;
+
+        if(AUTH::user()->kategori=="Pengepul")
+        $transaksi->validasi_pengepul=1;
+        elseif(AUTH::user()->kategori=="Nasabah")
+        $transaksi->validasi_nasabah=1;
 
         //untuk pembelian harga
         // if(!$this->ceksaldocukup($nasabah, $transaksi))
@@ -128,36 +147,44 @@ class TransaksiSampahController extends Controller
         //     ->withErrors(['error'=>'saldo tidak cukup']);
 
         //tambah saldo
-        $transaksi->nasabah->saldo = $transaksi->nasabah->saldo + $transaksi->total_pembayaran;
-        $transaksi->nasabah->save();
+        // $transaksi->nasabah->saldo = $transaksi->nasabah->saldo + $transaksi->total_pembayaran;
+        // $transaksi->nasabah->save();
 
         $transaksi->save();
 
 
-        return redirect()->route('transaksiSampah');
-
+        if(AUTH::user()->kategori=="Pengepul")
+        return redirect()->route('transaksiSampah')->withToastSuccess('berhasil divalidasi');
+        elseif(AUTH::user()->kategori=="Nasabah")
+        return redirect()->route('transaksiSampahPerNasabah')->withToastSuccess('berhasil divalidasi');
     }
 
 
-    public function validasiBatal(Request $request){
+    // public function validasiBatal(Request $request){
+    //     $transaksi=TransaksiSampah::find($request->id_transaksi);
+    //     return $this->pembatalan($transaksi);
+    // }
 
-        $transaksi=TransaksiSampah::find($request->id_transaksi);
-        $transaksi->validasi=0;
-
-        //untuk pembelian harga
-        // if(!$this->ceksaldocukup($nasabah, $transaksi))
-        // return redirect()->route('transaksiSampah')
-        //     ->withErrors(['error'=>'saldo tidak cukup']);
-
-        //tambah saldo
-        $transaksi->nasabah->saldo = $transaksi->nasabah->saldo - $transaksi->total_pembayaran;
-        $transaksi->nasabah->save();
+    public function pembatalan(TransaksiSampah $transaksi)
+    {
+        if($transaksi->validasi_pengepul==1 && $transaksi->validasi_nasabah==1)
+        {
+            if(AUTH::user()->kategori=="Pengepul")
+            return redirect()->route('transaksiSampah')->withToastError('tidak bisa dibatalkan, telah divalidasi 2 pihak');
+            elseif(AUTH::user()->kategori=="Nasabah")
+            return redirect()->route('transaksiSampahPerNasabah')->withToastError('tidak bisa dibatalkan, telah divalidasi 2 pihak');
+        }
+        elseif(AUTH::user()->kategori=="Pengepul")
+        $transaksi->validasi_pengepul=0;
+        elseif(AUTH::user()->kategori=="Nasabah")
+        $transaksi->validasi_nasabah=0;
 
         $transaksi->save();
 
-
-        return redirect()->route('transaksiSampah');
-
+        if(AUTH::user()->kategori=="Pengepul")
+        return redirect()->route('transaksiSampah')->withToastSuccess('berhasil '.AUTH::user()->kategori.' dibatalkan');
+        elseif(AUTH::user()->kategori=="Nasabah")
+        return redirect()->route('transaksiSampahPerNasabah')->withToastSuccess('berhasil '.AUTH::user()->kategori.' dibatalkan');
     }
 
 
@@ -209,11 +236,12 @@ class TransaksiSampahController extends Controller
         //     ->withErrors(['error'=>'saldo tidak cukup']);
 
         //tambah saldo
-        $nasabah->saldo = $nasabah->saldo + $transaksi->total_pembayaran;
+        // $nasabah->saldo = $nasabah->saldo + $transaksi->total_pembayaran;
         $nasabah->save();
 
         //simpan
-        $transaksi->validasi=1;
+        $transaksi->validasi_nasabah=0;
+        $transaksi->validasi_pengepul=1;
         $transaksi->save();
 
         return redirect()->route('transaksiSampah');
@@ -241,13 +269,36 @@ class TransaksiSampahController extends Controller
     {
         $transaksiSampah=TransaksiSampah::with(['nasabah'])->find($id);
 
-        //hapus saldo
-        $transaksiSampah->nasabah->saldo = $transaksiSampah->nasabah->saldo - $transaksiSampah->total_pembayaran;
-        $transaksiSampah->nasabah->save();
+        if(($transaksiSampah->validasi_nasabah==1 XOR $transaksiSampah->validasi_pengepul==1) AND ($transaksiSampah->created_at->format('m') < date('m')))
+        {
+            // jika minimal salah satu 0 dan sudah lewat satu bulan created_at, maka langsung destroy boleh
+            $transaksiSampah->delete();
 
-        $transaksiSampah->delete();
+            if(AUTH::user()->kategori=="Pengepul")
+            return redirect()->route('transaksiSampah')->withToastSuccess('berhasil transaksi dihapus');
+            elseif(AUTH::user()->kategori=="Nasabah")
+            return redirect()->route('transaksiSampahPerNasabah')->withToastSuccess('berhasil transaksi dihapus');
 
-        return redirect()->route('transaksiSampah');
+        }
+        elseif($transaksiSampah->validasi_nasabah==1 OR $transaksiSampah->validasi_pengepul==1)
+        {
+            return $this->pembatalan($transaksiSampah);
+        }
+        else{//jika n dan p belum validasi
+
+
+
+            //hapus saldo
+            // $transaksiSampah->nasabah->saldo = $transaksiSampah->nasabah->saldo - $transaksiSampah->total_pembayaran;
+            // $transaksiSampah->nasabah->save();
+
+            $transaksiSampah->delete();
+
+            if(AUTH::user()->kategori=="Pengepul")
+            return redirect()->route('transaksiSampah')->withToastSuccess('berhasil transaksi dihapus');
+            elseif(AUTH::user()->kategori=="Nasabah")
+            return redirect()->route('transaksiSampahPerNasabah')->withToastSuccess('berhasil transaksi dihapus');
+        }
     }
 
 

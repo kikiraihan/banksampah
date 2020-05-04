@@ -20,14 +20,14 @@ class LandingPageController extends Controller
     {
 
         $nNasabah = Nasabah::count();
-        $nTransaksiSampah = TransaksiSampah::where('validasi',1)->count();
+        $nTransaksiSampah = TransaksiSampah::where('validasi_nasabah',1)->where('validasi_pengepul',1)->count();
 
         $sampah=Sampah::all();
         $reward=Reward::all();
 
         $nasabah = Nasabah::Has('transaksiSampahs')->with(['transaksiSampahs'])
         ->whereHas('transaksiSampahs', function($transaksi){
-            $transaksi->where('validasi',1);
+            $transaksi->where('validasi_nasabah',1)->where('validasi_pengepul',1);
         })->get()->take(3);
 
 

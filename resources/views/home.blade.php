@@ -182,7 +182,7 @@
                     data: {
                         labels: {!!'["' . implode('", "', array_keys($nasabahProvinsi) ) . '"]'!!},
                         datasets: [{
-                            label: 'Jumlah Transaksi',
+                            label: 'Jumlah Nasabah',
                             data: {!!'["' . implode('", "', $nasabahProvinsi ) . '"]'!!},
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',

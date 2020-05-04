@@ -30,17 +30,26 @@
             </li>  --}}
             @else
 
-            @if(Auth::user()->kategori=='Nasabah')
+            @role('Nasabah')
             <li class="nav-item ">
                 <div class="nav-link small">
                     {{-- <div class="timer count-title count-number d-inline" data-to="{{ Auth::user()->nasabah->saldo }}" data-speed="1500"></div> --}}
-                    {{ Auth::user()->nasabah->point->sum() }} pts
                     <i class="fas fa-donate text-success"></i>
-                    {{-- <i class="fas fa-wallet"></i> --}}
+                    {{ Auth::user()->nasabah->point->sum() }} pts
                     {{-- <i class="fas fa-coins"></i> --}}
                 </div>
             </li>
-            @endif
+            @endrole
+            @role('Nasabah|Pengepul')
+            <li class="nav-item ">
+                <div class="nav-link small">
+                    {{-- <div class="timer count-title count-number d-inline" data-to="{{ Auth::user()->nasabah->saldo }}" data-speed="1500"></div> --}}
+                    <i class="fas fa-wallet"></i>
+                    Rp. 0
+                    {{-- {{ number_format(Auth::user()->katget->saldo->sum()) }} --}}
+                </div>
+            </li>
+            @endrole
 
             <li class="nav-item dropdown d-none d-lg-inline">
                 <a id="navbarDropdown" class="small nav-link dropdown-toggle " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

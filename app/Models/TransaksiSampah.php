@@ -14,7 +14,8 @@ class TransaksiSampah extends Model
         'id_sampah',
         'total_jumlah',
         'total_pembayaran',
-        'validasi',
+        'validasi_nasabah',
+        'validasi_pengepul',
     ];
 
     //relasi
