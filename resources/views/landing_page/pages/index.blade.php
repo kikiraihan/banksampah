@@ -17,7 +17,7 @@
 
                 <div class="col-md-4">
                     <div class="d-flex justify-content-center align-middle">
-                        <img src="{{asset('img/logo.jpeg')}}" alt="logo" class=" w-75">
+                        <img src="{{asset('img/logo-baru.jpeg')}}" alt="logo" class=" w-75">
                     </div>
                 </div>
 
